@@ -6,7 +6,7 @@ import model.User;
 
 import java.util.List;
 
-public class UserPlaylist {
+public class UserService {
     UserDAO userDAO = new UserDAO();
     public List<User> findAll(Pageable pageable){
         return userDAO.findAll(pageable);
