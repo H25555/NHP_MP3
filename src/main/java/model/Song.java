@@ -31,6 +31,17 @@ public class Song {
         this.image = image;
     }
 
+    public Song(String name, String song) {
+        this.name = name;
+        this.song = song;
+    }
+
+    public Song(int id, String name, String song) {
+        this.id = id;
+        this.name = name;
+        this.song = song;
+    }
+
     public int getId() {
         return id;
     }
