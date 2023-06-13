@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDAO extends ConnectionDatabase{
-    private final String SELECT_ROLES = "SELECT * FROM role";
-    private final String SELECT_ROLES_BY_ID = "SELECT * FROM user_role WHERE id = ?;";
+    private final String SELECT_ROLES = "SELECT * FROM user_role";
+    private final String SELECT_ROLES_BY_ID = "SELECT * FROM user_role WHERE id = ?";
+
 
     public List<Role> findAll(){
         List<Role> roles = new ArrayList<>();

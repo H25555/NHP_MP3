@@ -9,16 +9,8 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<c:if test="${sessionScope.user == null}">
-    <a href="/user?action=login">Login</a>
 
-</c:if>
-<c:if test="${sessionScope.user != null}">
-    Logined
-    <h1>${sessionScope.user.role.name}</h1>
-    <a href="/user?action=logout">Logout</a>
-</c:if>
-
-
+<a href="/admin/users?action=create">create</a>
+<a href="/login"> Login</a>
 </body>
 </html>
