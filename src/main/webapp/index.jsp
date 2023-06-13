@@ -9,6 +9,7 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
+
 <c:if test="${sessionScope.user == null}">
     <a href="/user?action=login">Login</a>
 
@@ -19,6 +20,9 @@
     <a href="/user?action=logout">Logout</a>
 </c:if>
 
+
+<a href="/admin/users?action=create">create</a>
+<a href="/login"> Login</a>
 
 </body>
 </html>

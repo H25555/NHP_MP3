@@ -22,7 +22,7 @@ public class UserDAO extends ConnectionDatabase {
             "ON user.id_role = " +
             "role.id where user.id = ?;";
 
-    private final String INSERT_USER = "INSERT INTO `user` (`name`, `password`, `role`) " +
+    private final String INSERT_USER = "INSERT INTO `user` (`name`, `password`, `id_role`) " +
             "VALUES (?, ?, ?);";
 
     private final String UPDATE_USER = "UPDATE `user` " +
@@ -49,6 +49,7 @@ public class UserDAO extends ConnectionDatabase {
             "WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ?\n" +
             "        OR lower(role.`name`) LIKE ? ;";
+    private final String SELECT_USER_BY_USERNAME = "SELECT user.*, user_role.`name` as role_name FROM user LEFT JOIN user_role ON user.id_role = user_role.id where user.user_name = ?;\n" ;
     RoleService roleService = new RoleService();
     public List<User> findAll(Pageable pageable) {
         List<User> users = new ArrayList<>();
@@ -129,10 +130,10 @@ public class UserDAO extends ConnectionDatabase {
                 //(truyên vào tên cột)
                 String name = rs.getString("name");
                 //(truyên vào tên cột)
-                String email = rs.getString("email");
+                String password = rs.getString("password");
                 String roleName = rs.getString("role_name");
                 int roleId = rs.getInt("id_role");
-                return new User(idCus, name, email, new Role(roleId, roleName));
+                return new User(idCus, name, password, new Role(roleId, roleName));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -142,7 +143,7 @@ public class UserDAO extends ConnectionDatabase {
     public void updateUser(User user){
         try (Connection connection = getConnection();
              //UPDATE `users` " +
-             //            "SET `name` = ?, `email` = ?, role_id = ? WHERE (`id` = ?);";
+             //            "SET `name` = ?, `password` = ?, role_id = ? WHERE (`id` = ?);";
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
@@ -186,5 +187,48 @@ public class UserDAO extends ConnectionDatabase {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public User findByUsername(String username) {
+        try (Connection connection = getConnection();
+
+             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(SELECT_USER_BY_USERNAME);) {
+            System.out.println(preparedStatement);
+            preparedStatement.setString(1, username);
+
+            // Step 3: tương đương vowis cái sét
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4:
+            //kiểm tra còn data hay không. còn thì cứ lấy bằng câu lệnh ở dưới
+            while (rs.next()) {
+                //(truyên vào tên cột)
+                int idCus = rs.getInt("id");
+                //(truyên vào tên cột)
+                String name = rs.getString("user_name");
+                //(truyên vào tên cột)
+                String password = rs.getString("password");
+                String roleName = rs.getString("role_name");
+//                String password = rs.getString("password");
+                int roleId = rs.getInt("id_role");
+                return new User(idCus,name,password,new Role(roleId,roleName));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public void createUser(User user){
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getRole().getId());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
