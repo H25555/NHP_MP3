@@ -178,7 +178,8 @@ public class UserDAO extends ConnectionDatabase {
             // Step 4:
             //kiểm tra còn data hay không. còn thì cứ lấy bằng câu lệnh ở dưới\
             while(rs.next()){
-                return new User(rs.getInt("id"),rs.getString("user_name"),rs.getString("password"),roleService.findById(rs.getInt("id_role")));
+                Role role = roleService.findById(rs.getInt("id_role"));
+                return new User(rs.getInt("id"),rs.getString("user_name"),rs.getString("password"),role);
 
             }
 

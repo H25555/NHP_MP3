@@ -14,4 +14,7 @@ public class UserService {
     public User findById(int id){
         return userDAO.findById(id);
     }
+    public User login(String username, String password){
+        return userDAO.login(username,password);
+    }
 }

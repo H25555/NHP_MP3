@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,15 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<c:if test="${sessionScope.user == null}">
+    <a href="/user?action=login">Login</a>
+
+</c:if>
+<c:if test="${sessionScope.user != null}">
+    Logined
+    <h1>${sessionScope.user.role.name}</h1>
+    <a href="/user?action=logout">Logout</a>
+</c:if>
+
 </body>
 </html>
