@@ -19,5 +19,6 @@
     <a href="/user?action=logout">Logout</a>
 </c:if>
 
+
 </body>
 </html>
