@@ -59,7 +59,6 @@ public class UserDAO extends ConnectionDatabase {
         search = "%" + search + "%";
         try (Connection connection = getConnection();
 
-             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
              PreparedStatement preparedStatement = connection
                      .prepareStatement(String
                              .format(SELECT_ALL_USERS, search, search, search,
