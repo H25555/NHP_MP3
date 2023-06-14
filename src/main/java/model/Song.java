@@ -8,8 +8,16 @@ public class Song {
     private Singer singer;
     private String song;
     private String image;
+    public Song(){}
 
-    public Song() {
+    public Song(int id, String name,String song, String image,  Author authors, Category category, Singer singer) {
+        this.id = id;
+        this.name = name;
+        this.song = song;
+        this.image = image;
+        this.author =authors;
+        this.category = category;
+        this.singer = singer;
     }
 
     public Song(String name, Author author, Category category, Singer singer, String song, String image) {
