@@ -146,16 +146,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.jsp"> NHP mp3</a>
+            <a class="navbar-brand" href="/home"> NHP mp3</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
-                <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
-                <li class="active"><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
-                <li><a href="admin/users"><i class="icon-user icon-white"></i> User</a></li>
+<%--            <ul class="nav navbar-nav">--%>
+<%--                <li class="active"><a href="/home"><i class="icon-home icon-white"></i> Home</a></li>--%>
+<%--&lt;%&ndash;                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>&ndash;%&gt;--%>
+<%--                <li><a href="/login"><i class="icon-user icon-white"></i> Login</a></li>--%>
 
-            </ul>
+<%--            </ul>--%>
         </div><!--/.nav-collapse -->
     </div>
 </div>
@@ -174,13 +174,16 @@
                             <input id="password" name="password" type="password" placeholder="Password">
                         </p>
 <%--                        <input class="submit btn-success btn btn-large" type="submit" value="Login">--%>
-                        <button >Login</button>
+                        <button class="submit btn-success btn btn-large">Login</button>
+
 
                     </fieldset>
+
                 </form>
-                <a href="">
-                    <h6>singup</h6>
+                <a href="/signup">
+                    <button class="submit btn-success btn btn-large">Signup</button>
                 </a>
+
             </div>
 
         </div>

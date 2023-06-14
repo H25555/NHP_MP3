@@ -103,8 +103,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
-                <li><a href="/table"><i class="icon-th icon-white"></i> Tables</a></li>
-                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User</a></li>
+                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>
+                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>
                 <c:if test="${sessionScope.user == null}">
                     <li><a href="/login"><i class="icon-lock icon-white"></i> Login</a></li>
                 </c:if>

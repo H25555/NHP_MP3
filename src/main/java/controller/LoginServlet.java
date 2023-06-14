@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
+
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     UserService userService = new UserService();
@@ -32,8 +34,18 @@ public class LoginServlet extends HttpServlet {
                 .forward(req,resp);
     }
 
+    private void showLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("login.jsp")
+                .forward(req,resp);
+    }
+
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("login.jsp").forward(req,resp);
+        req.getRequestDispatcher("login.jsp")
+                .forward(req,resp);
     }
+
+
 }

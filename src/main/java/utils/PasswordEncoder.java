@@ -10,6 +10,6 @@ public class PasswordEncoder {
 
     //kiem tra password nhap vao == passsword db
     public static boolean check(String plainTextPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainTextPassword, encode(hashedPassword));
+        return BCrypt.checkpw(plainTextPassword, hashedPassword);
     }
 }

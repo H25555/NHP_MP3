@@ -30,4 +30,7 @@ public class UserService {
     public void updateUser(User user){
         userDAO.updateUser(user);
     }
+    public boolean checkExist(String username){
+        return userDAO.checkExist(username);
+    }
 }

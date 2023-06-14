@@ -22,13 +22,14 @@ public class UserDAO extends ConnectionDatabase {
             "ON user.id_role = " +
             "user_role.id where user.id = ?;";
 
-    private final String INSERT_USER = "INSERT INTO `user` (`name`, `password`, `id_role`) " +
+    private final String INSERT_USER = "INSERT INTO `user` (`user_name`, `password`, `id_role`) " +
             "VALUES (?, ?, ?);";
 
     private final String UPDATE_USER = "UPDATE `user` " +
             "SET `name` = ?, `password` = ?, role = ? WHERE (`id` = ?);";
 
     private final String DELETE_USER = "DELETE  FROM `user` WHERE (`id` = ?);";
+    private final String CHECK_EXIST_USERNAME ="SELECT * FROM nhp_mp3.user where user_name = ?";
     private String SELECT_ALL_USERS = "SELECT \n" +
             "    user.*, user_role.`name` as role_name \n" +
             "FROM\n" +
@@ -130,7 +131,7 @@ public class UserDAO extends ConnectionDatabase {
                 //(truyên vào tên cột)
                 int idCus = rs.getInt("id");
                 //(truyên vào tên cột)
-                String name = rs.getString("name");
+                String name = rs.getString("user_name");
                 //(truyên vào tên cột)
                 String password = rs.getString("password");
                 String roleName = rs.getString("role_name");
@@ -234,4 +235,39 @@ public class UserDAO extends ConnectionDatabase {
         }
     }
 
+    public boolean checkExist(String username){
+        try (Connection connection = getConnection();
+
+             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(CHECK_EXIST_USERNAME);) {
+            System.out.println(preparedStatement);
+            preparedStatement.setString(1, username);
+
+            // Step 3: tương đương vowis cái sét
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4:
+            //kiểm tra còn data hay không. còn thì cứ lấy bằng câu lệnh ở dưới
+            User user = new User();
+            while (rs.next()) {
+                //(truyên vào tên cột)
+                int idCus = rs.getInt("id");
+                //(truyên vào tên cột)
+                String name = rs.getString("user_name");
+                //(truyên vào tên cột)
+                String password = rs.getString("password");
+                String roleName = rs.getString("role_name");
+                int roleId = rs.getInt("id_role");
+               user = new User(idCus, name, password, new Role(roleId, roleName));
+            }
+            if (user == null){
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
 }

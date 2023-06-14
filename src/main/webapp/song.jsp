@@ -19,7 +19,7 @@
 </style>
 <body>
 <h1>${action}</h1>
-<a href="songs?action=create">Create Book</a>
+<a href="/admin/songs?action=create">Create Book</a>
 <c:if test="${requestScope['songs'].size() != 0}">
     <table border="1">
         <tr>
@@ -49,8 +49,8 @@
                     <img class="image" src="${song.image}">
                 </td>
 
-                <td><a href="songs?action=edit&id=${song.id}">Edit</a> </td>
-                <td><a href="songs?action=delete&id=${song.id}" onclick="return confirm('Do you want to remove ${song.name}?')">Delete</a> </td>
+                <td><a href="admin/songs?action=edit&id=${song.id}">Edit</a> </td>
+                <td><a href="admin/songs?action=delete&id=${song.id}" onclick="return confirm('Do you want to remove ${song.name}?')">Delete</a> </td>
             </tr>
         </c:forEach>
     </table>

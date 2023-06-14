@@ -37,8 +37,7 @@ public class HomeServlet extends HttpServlet {
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
-        session.removeAttribute("user");
-        session.removeAttribute("role");
+        session.invalidate();
         resp.sendRedirect("home");
     }
 }

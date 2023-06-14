@@ -15,8 +15,8 @@
 <c:if test="${requestScope['message'] != null}">
     <span>${message}</span>
 </c:if>
-<a href="/songs">Back</a>
-<form action="/songs?action=create" method="post">
+<a href="/admin/songs">Back</a>
+<form action="/admin/songs?action=create" method="post">
     <label for="name">Name</label>
     <input type="text" name="name" id="name" value="${song.name}" />
     <label for="author">Author</label>

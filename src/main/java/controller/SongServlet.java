@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(name = "SongServlet", urlPatterns = "/songs")
+@WebServlet(name = "SongServlet", urlPatterns = "/admin/songs")
 
 public class SongServlet extends HttpServlet {
     SongService songService = new SongService();
@@ -63,7 +63,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("authors",authors);
         req.setAttribute("categorys",categories);
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("editSong.jsp").forward(req,resp);
+        req.getRequestDispatcher("/editSong.jsp").forward(req,resp);
     }
     public void editSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -83,7 +83,7 @@ public class SongServlet extends HttpServlet {
         request.setAttribute("author",author);
         request.setAttribute("category",category);
         request.setAttribute("singer",singer);
-        request.getRequestDispatcher("editSong.jsp").forward(request,response);
+        request.getRequestDispatcher("/editSong.jsp").forward(request,response);
 
     }
 
@@ -96,7 +96,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("authors",authors);
         req.setAttribute("categorys",categories);
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("createSong.jsp").forward(req,resp);
+        req.getRequestDispatcher("/createSong.jsp").forward(req,resp);
     }
     public void createSong(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -110,12 +110,12 @@ public class SongServlet extends HttpServlet {
         String image = request.getParameter("image");
         Song song = new Song(name,author,category,singer,image,song1);
         songService.createSong(song);
-        request.setAttribute("mesage","Thêm nhạc thành công");
+        request.setAttribute("message","Thêm nhạc thành công");
         request.setAttribute("song",song);
         request.setAttribute("author",author);
         request.setAttribute("category",category);
         request.setAttribute("singer",singer);
-        request.getRequestDispatcher("createSong.jsp").forward(request,response);
+        request.getRequestDispatcher("/createSong.jsp").forward(request,response);
 
 
 
@@ -131,7 +131,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("authors",authors);
         req.setAttribute("categorys",categorys);
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("song.jsp").forward(req,resp);
+        req.getRequestDispatcher("/song.jsp").forward(req,resp);
 
     }
     public void deleteSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
