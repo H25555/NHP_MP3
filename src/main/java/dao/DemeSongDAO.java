@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongDAO {
+public class DemeSongDAO {
     private String url = "jdbc:mysql://localhost:3306/nhp_mp3_db";
     private String username = "root";
     private String password = "050401";

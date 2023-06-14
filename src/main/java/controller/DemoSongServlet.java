@@ -1,9 +1,8 @@
 package controller;
 
 import model.Song;
-import service.SongService;
+import service.DemoSongService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +12,14 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "SongServlet", urlPatterns = "/NHPmp3")
-public class SongServlet extends HttpServlet {
-    SongService songService = new SongService();
+public class DemoSongServlet extends HttpServlet {
+    DemoSongService demoSongService = new DemoSongService();
     public void init() {
-        this.songService = new SongService();
+        this.demoSongService = new DemoSongService();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Song> songs = songService.findAll();
+        List<Song> songs = demoSongService.findAll();
         request.setAttribute("songs", songs);
         request.getRequestDispatcher("songs.jsp").forward(request,response);
     }
@@ -30,7 +29,7 @@ public class SongServlet extends HttpServlet {
         String filePath = "assets/music/" + fileName + ".mp3";
         String name = request.getParameter("name");
         Song song = new Song(name, filePath);
-        songService.create(song);
+        demoSongService.create(song);
         response.sendRedirect(request.getContextPath() + "NHPmp3");
     }
 }

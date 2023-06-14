@@ -1,8 +1,6 @@
 package controller;
 
-import dao.SongDAO;
 import dao.UploadDAO;
-import model.Song;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 
 @WebServlet({"/upload"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB

@@ -1,12 +1,12 @@
 package service;
 
-import dao.SongDAO;
+import dao.DemeSongDAO;
 import model.Song;
 
 import java.util.List;
 
-public class SongService implements BaseCRUDService<Song>{
-    SongDAO songDAO = new SongDAO();
+public class DemoSongService implements BaseCRUDService<Song>{
+    DemeSongDAO songDAO = new DemeSongDAO();
     @Override
     public void create(Song song) {
         songDAO.insertSong(song);
