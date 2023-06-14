@@ -27,11 +27,10 @@ public class SongServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fileName = request.getParameter("song");
-        String filePath = "/assets/music/" + fileName + ".mp3";
+        String filePath = "assets/music/" + fileName + ".mp3";
         String name = request.getParameter("name");
         Song song = new Song(name, filePath);
         songService.create(song);
         response.sendRedirect(request.getContextPath() + "NHPmp3");
     }
-
 }

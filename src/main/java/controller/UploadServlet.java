@@ -2,6 +2,7 @@ package controller;
 
 import dao.SongDAO;
 import dao.UploadDAO;
+import model.Song;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,13 +16,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
-@WebServlet(name = "UploadServlet", urlPatterns = "/NHPmp3/upload")
+@WebServlet({"/upload"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class UploadServlet extends HttpServlet {
-    private static final String UPLOAD_DIR = "/assets/music";
+    private static final String UPLOAD_DIR = "assets/music/";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String musicName = request.getParameter("name");
@@ -57,5 +59,12 @@ public class UploadServlet extends HttpServlet {
     private void saveMusicToDatabase(String musicName, String filePath) {
         UploadDAO uploadDAO = new UploadDAO();
         uploadDAO.saveMusic(musicName, filePath);
+    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getServletPath();
+        switch (action){
+            case "/upload":
+                request.getRequestDispatcher("upload.jsp").forward(request,response);
+        }
     }
 }

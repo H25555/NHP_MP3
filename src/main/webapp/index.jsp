@@ -6,11 +6,11 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
+
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
+<a href="NHPmp3">Hello Servlet</a>
 
-<a href="/admin/users?action=create">create</a>
-<a href="/login"> Login</a>
 </body>
 </html>
