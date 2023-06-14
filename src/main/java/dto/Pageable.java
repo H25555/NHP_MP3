@@ -9,8 +9,35 @@ public class Pageable {
         private String nameField;
 
         private String sortBy;
+    private String filterAuthor;
+    private String filterSinger;
+    private String filterCategory;
 
-        public Pageable(String search, int page, int totalItems) {
+    public String getFilterAuthor() {
+        return filterAuthor;
+    }
+
+    public void setFilterAuthor(String filterAuthor) {
+        this.filterAuthor = filterAuthor;
+    }
+
+    public String getFilterSinger() {
+        return filterSinger;
+    }
+
+    public void setFilterSinger(String filterSinger) {
+        this.filterSinger = filterSinger;
+    }
+
+    public String getFilterCategory() {
+        return filterCategory;
+    }
+
+    public void setFilterCategory(String filterCategory) {
+        this.filterCategory = filterCategory;
+    }
+
+    public Pageable(String search, int page, int totalItems) {
             this.search = search;
             this.page = page;
             this.totalItems = totalItems;

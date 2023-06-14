@@ -1,6 +1,7 @@
 package service;
 
 import dao.SongDAO;
+import dto.Pageable;
 import model.Song;
 
 import java.util.List;
@@ -9,8 +10,8 @@ import java.util.List;
 public class SongService {
     SongDAO songDAO = new SongDAO();
 
-    public List<Song> findAll(){
-        return songDAO.findAll();
+    public List<Song> findAll(Pageable pageable){
+        return songDAO.findAll(pageable);
     }
     public Song findByID(int id){
         return songDAO.findById(id);

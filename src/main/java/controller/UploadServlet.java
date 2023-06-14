@@ -42,7 +42,7 @@ public class UploadServlet extends HttpServlet {
         String[] elements = contentDisposition.split(";");
         for (String element : elements) {
             if (element.trim().startsWith("filename")) {
-                return element.substring(element.indexOf('=') + 1).trim().replace("\"", "");
+                return element.substring(element.indexOf('=') + 1).trim().replace("\"", "/");
             }
         }
         return null;
@@ -61,7 +61,7 @@ public class UploadServlet extends HttpServlet {
         String action = request.getServletPath();
         switch (action){
             case "/upload":
-                request.getRequestDispatcher("upload.jsp").forward(request,response);
+                request.getRequestDispatcher("admin.jsp").forward(request,response);
         }
     }
 }

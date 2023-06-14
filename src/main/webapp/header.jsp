@@ -1,41 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
-<html><head>
+<html>
+<head>
     <meta charset="utf-8">
-    <title>BLOCKS - Bootstrap Dashboard Theme</title>
+    <title>NHP-Nhachayphet.mp3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Carlos Alvarez - Alvarez.is">
 
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css"/>
 
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/font-style.css" rel="stylesheet">
-    <link href="css/flexslider.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+    <link href="./css/font-style.css" rel="stylesheet">
+    <link href="./css/flexslider.css" rel="stylesheet">
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="js/lineandbars.js"></script>
-
-    <script type="text/javascript" src="js/dash-charts.js"></script>
-    <script type="text/javascript" src="js/gauge.js"></script>
 
     <!-- NOTY JAVASCRIPT -->
-    <script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-    <script type="text/javascript" src="js/noty/layouts/top.js"></script>
-    <script type="text/javascript" src="js/noty/layouts/topLeft.js"></script>
-    <script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-    <script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
 
-    <!-- You can add more layouts if you want -->
-    <script type="text/javascript" src="js/noty/themes/default.js"></script>
-    <!-- <script type="text/javascript" src="assets/js/dash-noty.js"></script> This is a Noty bubble when you init the theme-->
-    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="js/jquery.flexslider.js" type="text/javascript"></script>
-
-    <script type="text/javascript" src="js/admin.js"></script>
 
     <style type="text/css">
         body {
@@ -53,56 +36,34 @@
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript">
-        $(document).ready(function () {
 
-            $("#btn-blog-next").click(function () {
-                $('#blogCarousel').carousel('next')
-            });
-            $("#btn-blog-prev").click(function () {
-                $('#blogCarousel').carousel('prev')
-            });
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-            $("#btn-client-next").click(function () {
-                $('#clientCarousel').carousel('next')
-            });
-            $("#btn-client-prev").click(function () {
-                $('#clientCarousel').carousel('prev')
-            });
 
-        });
-
-        $(window).load(function () {
-
-            $('.flexslider').flexslider({
-                animation: "slide",
-                slideshow: true,
-                start: function (slider) {
-                    $('body').removeClass('loading');
-                }
-            });
-        });
-
-    </script>
 </head>
 <body>
-
+<script>
+    function onClearSearch() {
+        searchButton.click();
+    }
+</script>
 <!-- NAVIGATION MENU -->
 
 <div class="navbar-nav navbar-inverse navbar-fixed-top">
 
-    <div class="container">
+    <div class="container" style="display: flex ;position: relative">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"> NHP mp3</a>
+            <a class="navbar-brand" href="index.jsp"> NHP mp3</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
+<<<<<<< Updated upstream
                 <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>
                 <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>
                 <c:if test="${sessionScope.user == null}">
@@ -111,9 +72,30 @@
                 <c:if test="${sessionScope.user != null}">
                     <li><a href="/home?action=logout"><i class="icon-lock icon-white"></i> Logout</a></li>
                 </c:if>
+=======
+                <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
+                <li><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
+                <li><a href="users.jsp"><i class="icon-user icon-white"></i> User</a></li>
+
+>>>>>>> Stashed changes
             </ul>
         </div><!--/.nav-collapse -->
+        <div style="display: flex;  position: absolute; right: 0;align-content: center; height: 100%">
+            <h1>${action}</h1>
+
+            <div class="d-flex justify-content-between"
+                 style="padding-left: 4%; margin-bottom: auto;margin-top: auto;align-content: center">
+                <form action="/songs" method="get" style="padding-right: 4%; display: flex">
+                    <div style="display: flex">
+                        <input style=" height: 40px;width: 300px;border-radius: 20px" type="search"
+                               name="search" id="search" value="${pageable.search}" onsearch="onClearSearch()"/>
+                        <button style="border-radius: 50%;width: 40px; height: 40px" id="searchButton" class="btn btn-primary" type="submit"><i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-<div class="container">
+
 

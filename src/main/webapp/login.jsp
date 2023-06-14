@@ -42,11 +42,19 @@
     <!-- Jquery Validate Script - Validation Fields -->
     <script type="text/javascript">
 
+<<<<<<< Updated upstream
         // $.validator.setDefaults({
         //     submitHandler: function () {
         //         window.open('/home', '_self', false)
         //     }
         // });
+=======
+        $.validator.setDefaults({
+            submitHandler: function () {
+                window.open('index.jsp', '_self', false)
+            }
+        });
+>>>>>>> Stashed changes
 
         $().ready(function () {
             // validate the comment form when it is submitted
