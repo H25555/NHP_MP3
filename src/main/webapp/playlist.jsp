@@ -15,7 +15,7 @@
 <form action="/playlist?action=create" method="post">
     <label for="pl_name"></label>
     <input type="text" name = "pl_name" id="pl_name">
-    <input type="hidden" name="id_user" value="${user.id}">
+    <input type="hidden" name="id_user" value="${sessionScope.user.id}">
 </form>
 <c:forEach items="${list_playlist}" var="playlist">
     <a href="" value="${playlist.id}">${playlist.name}</a>

@@ -20,9 +20,9 @@ public class SongDAO extends ConnectionDatabase {
     private final String SELECT_USER_BY_ID = "SELECT s.*, a.`name` as name_author , c.`name` as type, sg.`name` as name_singer  FROM song s \n" +
             "LEFT JOIN author a ON s.id_author = a.id\n" +
             "LEFT JOIN category c ON s.id_category = c.id\n" +
-            "LEFT JOIN singer sg ON s.id_singer = sg.id where s.id = 3;";
-    private final String CREAT_USER = "INSERT INTO `song` (`name`, `id_author`, `id_category`, `id_singer`, `link_image`, `link_song`) VALUES (?, ?,?, ?, ?, ?);";
-    private final String EDIT_USER = "UPDATE `song` SET `name` = ?, `id_author` = ?, `id_category` = ?, `id_singer` = ?, `link_image` = ?, `link_song` = ? WHERE (`id` = ?);";
+            "LEFT JOIN singer sg ON s.id_singer = sg.id where s.id = ?;";
+    private final String CREAT_USER = "INSERT INTO `song` (`name`, `id_author`, `id_category`, `id_singer`, `link_song`, `link_image`) VALUES (?, ?,?, ?, ?, ?);";
+    private final String EDIT_USER = "UPDATE `song` SET `name` = ?, `id_author` = ?, `id_category` = ?, `id_singer` = ?, `link_song` = ?, `link_image` = ? WHERE (`id` = ?);";
     private final String DELETE_USER = "DELETE FROM `song` WHERE (`id` = ?);";
 
     public List<Song> findAll() {
@@ -53,7 +53,7 @@ public class SongDAO extends ConnectionDatabase {
                 int singerID = rs.getInt("id_singer");
                 String singers = rs.getString("name_singer");
                 Singer singer = new Singer(singerID,singers);
-                songs.add(new Song(id,name,song,image,authors,category,singer));
+                songs.add(new Song(id,name,authors,category,singer,song,image));
 
             }
         } catch (SQLException e) {
@@ -89,7 +89,7 @@ public class SongDAO extends ConnectionDatabase {
                 int singerID = rs.getInt("id_singer");
                 String singers = rs.getString("name_singer");
                 Singer singer = new Singer(singerID,singers);
-                return new Song(idSong, name,image, song,authors,category,singer);
+                return new Song(idSong, name, song,image,authors,category,singer);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -112,5 +112,31 @@ public class SongDAO extends ConnectionDatabase {
             System.out.println(e.getMessage());
         }
     }
+    public void editSong(Song song){
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(EDIT_USER)) {
+            preparedStatement.setString(1, song.getName());
+            preparedStatement.setInt(2,song.getAuthor().getId());
+            preparedStatement.setInt(3,song.getCategory().getId());
+            preparedStatement.setInt(4,song.getSinger().getId());
+            preparedStatement.setString(5,song.getSong());
+            preparedStatement.setString(6,song.getImage());
+            preparedStatement.setInt(7,song.getId());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void deleteBook(int id) {
 
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

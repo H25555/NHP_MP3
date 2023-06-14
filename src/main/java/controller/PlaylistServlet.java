@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebServlet(name = "playlistServlet", urlPatterns = "/playlist")
 public class PlaylistServlet extends HttpServlet {
-    @Override
+     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
@@ -27,7 +27,7 @@ public class PlaylistServlet extends HttpServlet {
     }
 
     private void showPlaylist(HttpServletRequest req, HttpServletResponse resp) {
-
+        
     }
 
 

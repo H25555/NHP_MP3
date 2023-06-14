@@ -12,32 +12,36 @@ import java.sql.*;
 
 public class UserDAO extends ConnectionDatabase {
     private final String CHECK_LOGIN = "SELECT * FROM nhp_mp3.user where user_name = ? and password = ?;";
-    private final String SELECT_USERS = "SELECT user.*, role.`name` as role_name " +
+    private final String SELECT_USERS = "SELECT user.*, user_role.`name` as role_name " +
             "FROM user LEFT JOIN role " +
             "ON user.role = role.id WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ? \n" +
             "        OR lower(role.`name`) LIKE ? ORDER BY ? ?  LIMIT ? OFFSET ? ;";
-    private final String SELECT_USERS_BY_ID = "SELECT user.*, role.`name` as role_name " +
-            "FROM user LEFT JOIN role " +
+    private final String SELECT_USERS_BY_ID = "SELECT user.*, user_role.`name` as role_name " +
+            "FROM user LEFT JOIN user_role " +
             "ON user.id_role = " +
-            "role.id where user.id = ?;";
+            "user_role.id where user.id = ?;";
 
-    private final String INSERT_USER = "INSERT INTO `user` (`name`, `password`, `role`) " +
+    private final String INSERT_USER = "INSERT INTO `user` (`name`, `password`, `id_role`) " +
             "VALUES (?, ?, ?);";
 
     private final String UPDATE_USER = "UPDATE `user` " +
             "SET `name` = ?, `password` = ?, role = ? WHERE (`id` = ?);";
 
-    private final String DELETE_USER = "DELETE FROM `user` WHERE (`id` = ?);";
+    private final String DELETE_USER = "DELETE  FROM `user` WHERE (`id` = ?);";
     private String SELECT_ALL_USERS = "SELECT \n" +
-            "    user.*, role.`name` as role_name \n" +
+            "    user.*, user_role.`name` as role_name \n" +
             "FROM\n" +
             "    user\n" +
             "        LEFT JOIN\n" +
-            "    role ON users.id_role = role.id\n" +
+            "    user_role ON user.id_role = user_role.id\n" +
             "WHERE\n" +
-            "    lower(user.`name`) LIKE '%s' OR lower(user.password) LIKE '%s' \n" +
-            "        OR lower(role.`name`) LIKE '%s' order by %s %s LIMIT %d OFFSET %d  ;\n";
+            "    lower(user.`user_name`) LIKE ? OR lower(user.password) LIKE ? \n" +
+            "        OR lower(user_role.`name`) LIKE ? order by ? ? LIMIT ? OFFSET ?  ;\n";
+
+//    "SELECT user.*, user_role.`name` as role_name FROM user LEFT JOIN
+//    user_role ON user.id_role = user_role.id WHERE    lower(user.`user_name`) LIKE '%a%' OR lower(user.password) LIKE '%a%'
+//    OR lower(user_role.`name`) LIKE '%a%' order by user_name asc LIMIT 5 OFFSET 0  ;"
 
 
     private final String TOTAL_USERS = "SELECT \n" +
@@ -45,10 +49,11 @@ public class UserDAO extends ConnectionDatabase {
             "FROM\n" +
             "    user\n" +
             "        LEFT JOIN\n" +
-            "    role ON user.role = role.id\n" +
+            "    role ON user.role = user_role.id\n" +
             "WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ?\n" +
             "        OR lower(role.`name`) LIKE ? ;";
+    private final String SELECT_USER_BY_USERNAME = "SELECT user.*, user_role.`name` as role_name FROM user LEFT JOIN user_role ON user.id_role = user_role.id where user.user_name = ?;\n" ;
     RoleService roleService = new RoleService();
     public List<User> findAll(Pageable pageable) {
         List<User> users = new ArrayList<>();
@@ -61,17 +66,15 @@ public class UserDAO extends ConnectionDatabase {
 
              PreparedStatement preparedStatement = connection
                      .prepareStatement(String
-                             .format(SELECT_ALL_USERS, search, search, search,
-                                     pageable.getNameField(), pageable.getSortBy(),
-                                     pageable.getTotalItems(),(pageable.getPage() - 1) * pageable.getTotalItems()))) {
+                             .format(SELECT_ALL_USERS))) {
             System.out.println(preparedStatement);
-//            preparedStatement.setString(1, search);
-//            preparedStatement.setString(2, search);
-//            preparedStatement.setString(3, search);
-//            preparedStatement.setInt(6, pageable.getTotalItems());
-//            preparedStatement.setInt(7, (pageable.getPage() - 1) * pageable.getTotalItems());
-//            preparedStatement.setString(4, pageable.getNameField());
-//            preparedStatement.setString(5, pageable.getSortBy());
+            preparedStatement.setString(1, search);
+            preparedStatement.setString(2, search);
+            preparedStatement.setString(3, search);
+            preparedStatement.setInt(6, pageable.getTotalItems());
+            preparedStatement.setInt(7, (pageable.getPage() - 1) * pageable.getTotalItems());
+            preparedStatement.setString(4, pageable.getNameField());
+            preparedStatement.setString(5, pageable.getSortBy());
 
             // Step 3: tương đương vowis cái sét
             ResultSet rs = preparedStatement.executeQuery();
@@ -83,7 +86,7 @@ public class UserDAO extends ConnectionDatabase {
                 //(truyên vào tên cột)
                 int id = rs.getInt("id");
                 //(truyên vào tên cột)
-                String name = rs.getString("name");
+                String name = rs.getString("user_name");
                 //(truyên vào tên cột)
                 String password = rs.getString("password");
                 String roleName = rs.getString("role_name");
@@ -129,10 +132,10 @@ public class UserDAO extends ConnectionDatabase {
                 //(truyên vào tên cột)
                 String name = rs.getString("name");
                 //(truyên vào tên cột)
-                String email = rs.getString("email");
+                String password = rs.getString("password");
                 String roleName = rs.getString("role_name");
                 int roleId = rs.getInt("id_role");
-                return new User(idCus, name, email, new Role(roleId, roleName));
+                return new User(idCus, name, password, new Role(roleId, roleName));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -142,7 +145,7 @@ public class UserDAO extends ConnectionDatabase {
     public void updateUser(User user){
         try (Connection connection = getConnection();
              //UPDATE `users` " +
-             //            "SET `name` = ?, `email` = ?, role_id = ? WHERE (`id` = ?);";
+             //            "SET `name` = ?, `password` = ?, role_id = ? WHERE (`id` = ?);";
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
@@ -176,7 +179,8 @@ public class UserDAO extends ConnectionDatabase {
             // Step 4:
             //kiểm tra còn data hay không. còn thì cứ lấy bằng câu lệnh ở dưới\
             while(rs.next()){
-                return new User(rs.getInt("id"),rs.getString("user_name"),rs.getString("password"),roleService.findById(rs.getInt("id_role")));
+                Role role = roleService.findById(rs.getInt("id_role"));
+                return new User(rs.getInt("id"),rs.getString("user_name"),rs.getString("password"),role);
 
             }
 
@@ -186,4 +190,48 @@ public class UserDAO extends ConnectionDatabase {
         }
         return null;
     }
+    public User findByUsername(String username) {
+        try (Connection connection = getConnection();
+
+             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(SELECT_USER_BY_USERNAME);) {
+            System.out.println(preparedStatement);
+            preparedStatement.setString(1, username);
+
+            // Step 3: tương đương vowis cái sét
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4:
+            //kiểm tra còn data hay không. còn thì cứ lấy bằng câu lệnh ở dưới
+            while (rs.next()) {
+                //(truyên vào tên cột)
+                int idCus = rs.getInt("id");
+                //(truyên vào tên cột)
+                String name = rs.getString("user_name");
+                //(truyên vào tên cột)
+                String password = rs.getString("password");
+                String roleName = rs.getString("role_name");
+//                String password = rs.getString("password");
+                int roleId = rs.getInt("id_role");
+                return new User(idCus,name,password,new Role(roleId,roleName));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public void createUser(User user){
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getRole().getId());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

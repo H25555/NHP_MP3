@@ -1,10 +1,16 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Main Page</title>
 </head>
 <body>
-<a href="songs">Hello Servlet Phu code</a>
+
+<%@ include file="header.jsp" %>
+<div class="container">
+
+
+</div>
+<%@ include file="footer.jsp" %>
+
 </body>
 </html>

@@ -42,9 +42,49 @@ public class SongServlet extends HttpServlet {
             case "create":
                 showSreateSong(req,resp);
                 break;
+            case "edit":
+                showEditSong(req,resp);
+                break;
+            case "delete" :
+                deleteSong(req,resp);
+                break;
             default:
                 showSong(req,resp);
         }
+    }
+
+    private void showEditSong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        Song song = songService.findByID(id);
+        req.setAttribute("song", song);
+        List<Author> authors = authorService.findAll();
+        List<Category> categories = categoryService.findAll();
+        List<Singer> singers = singerService.findAll();
+        req.setAttribute("authors",authors);
+        req.setAttribute("categorys",categories);
+        req.setAttribute("singers",singers);
+        req.getRequestDispatcher("editSong.jsp").forward(req,resp);
+    }
+    public void editSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        int IDAuthor = Integer.parseInt(request.getParameter("author"));
+        Author author = authorService.findByID(IDAuthor);
+        int IDCategory = Integer.parseInt(request.getParameter("category"));
+        Category category = categoryService.findByID(IDCategory);
+        int IDSinger = Integer.parseInt(request.getParameter("singer"));
+        Singer singer = singerService.findByID(IDSinger);
+        String song1 = request.getParameter("song");
+        String image = request.getParameter("image");
+        Song song = new Song(id,name,author,category,singer,image,song1);
+        songService.editSong(song);
+        request.setAttribute("mesage","Update thành công");
+        request.setAttribute("song",song);
+        request.setAttribute("author",author);
+        request.setAttribute("category",category);
+        request.setAttribute("singer",singer);
+        request.getRequestDispatcher("editSong.jsp").forward(request,response);
+
     }
 
     private void showSreateSong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -68,7 +108,7 @@ public class SongServlet extends HttpServlet {
         Singer singer = singerService.findByID(IDSinger);
         String song1 = request.getParameter("song");
         String image = request.getParameter("image");
-        Song song = new Song(name,author,category,singer,song1,image);
+        Song song = new Song(name,author,category,singer,image,song1);
         songService.createSong(song);
         request.setAttribute("mesage","Thêm nhạc thành công");
         request.setAttribute("song",song);
@@ -94,6 +134,11 @@ public class SongServlet extends HttpServlet {
         req.getRequestDispatcher("song.jsp").forward(req,resp);
 
     }
+    public void deleteSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        songService.deleteSong(id);
+        showSong(request,response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -109,6 +154,9 @@ public class SongServlet extends HttpServlet {
         switch (action){
             case "create":
                 createSong(req,resp);
+                break;
+            case "edit":
+                editSong(req,resp);
                 break;
             default:
                 showSong(req,resp);

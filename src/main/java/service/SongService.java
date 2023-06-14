@@ -20,4 +20,10 @@ public class SongService {
     public void createSong(Song song){
         songDAO.createSong(song);
     }
+    public void editSong(Song song){
+        songDAO.editSong(song);
+    }
+    public void deleteSong(int id){
+        songDAO.deleteBook(id);
+    }
 }

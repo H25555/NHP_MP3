@@ -39,12 +39,16 @@
                 <td>${song.category.name}</td>
                 <td>${song.singer.name}</td>
                 <td>
+<%--                    ${song.image}--%>
                     <audio controls class="song-play" id="audio${status.index}">
                         <source src="${song.song}" type="audio/mp3">
                     </audio>
                 </td>
-                
-                <td ><img class="image" src="${song.image}"></td>
+                <td >
+<%--                                            ${song.song}--%>
+                    <img class="image" src="${song.image}">
+                </td>
+
                 <td><a href="songs?action=edit&id=${song.id}">Edit</a> </td>
                 <td><a href="songs?action=delete&id=${song.id}" onclick="return confirm('Do you want to remove ${song.name}?')">Delete</a> </td>
             </tr>

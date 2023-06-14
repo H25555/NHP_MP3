@@ -44,9 +44,6 @@
     <input type="text" name="song" id="song" value="${song.song}" />
     <label for="image">Ảnh</label>
     <input type="text" name="image" id="image" value="${song.image}" />
-
-
-
     <button type="submit">Create</button>
 </form>
 </body>
