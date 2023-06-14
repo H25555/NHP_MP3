@@ -29,6 +29,9 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "edit":
+                editUser(req, resp);
+                break;
             default:
                 showUser(req,resp);
         }
@@ -41,10 +44,46 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-
+            case "edit":
+                showEditUser(req,resp);
+                break;
+            case "delete":
+                deleteUser(req,resp);
+                break;
             default:
                 showUser(req,resp);
         }
+    }
+
+    private void showEditUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        User user = userService.findById(id);
+        req.setAttribute("user",user);
+        req.setAttribute("roles",roleService.findAll());
+        req.getRequestDispatcher("/edituser.jsp").forward(req,resp);
+    }
+
+    private void editUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        int roleId = Integer.parseInt(req.getParameter("role"));
+
+        Role role = roleService.findById(roleId);
+        User user = new User(id,username,password,role);
+        userService.updateUser(user);
+
+        req.setAttribute("user",user);
+        req.setAttribute("roles", roleService.findAll());
+        req.setAttribute("message", "edited");
+        req.getRequestDispatcher("/edituser.jsp").forward(req,resp);
+    }
+
+
+    private void deleteUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        userService.deleteUser(id);
+        showUser(req,resp);
     }
 
     private void showUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

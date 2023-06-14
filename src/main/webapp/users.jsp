@@ -45,7 +45,7 @@
                 <td>${user.password}</td>
                 <td>${user.role.name}</td>
                 <td><a href="/admin/users?action=edit&id=${user.id}">Edit</a> </td>
-                <td><a href="/admin/users?action=delete&id=${user.id}" onclick="return confirm('Do you want to remove ${customer.name}?')">Delete</a> </td>
+                <td><a href="/admin/users?action=delete&id=${user.id}" onclick="return confirm('Do you want to remove ${user.username}?')">Delete</a> </td>
             </tr>
         </c:forEach>
     </table>
