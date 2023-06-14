@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html>
 <head>
@@ -40,11 +42,11 @@
     <!-- Jquery Validate Script - Validation Fields -->
     <script type="text/javascript">
 
-        $.validator.setDefaults({
-            submitHandler: function () {
-                window.open('index.jsp', '_self', false)
-            }
-        });
+        // $.validator.setDefaults({
+        //     submitHandler: function () {
+        //         window.open('/home', '_self', false)
+        //     }
+        // });
 
         $().ready(function () {
             // validate the comment form when it is submitted
@@ -151,7 +153,7 @@
                 <li><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
                 <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
                 <li class="active"><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
-                <li><a href="user.jsp"><i class="icon-user icon-white"></i> User</a></li>
+                <li><a href="admin/users"><i class="icon-user icon-white"></i> User</a></li>
 
             </ul>
         </div><!--/.nav-collapse -->
@@ -172,7 +174,7 @@
                             <input id="password" name="password" type="password" placeholder="Password">
                         </p>
 <%--                        <input class="submit btn-success btn btn-large" type="submit" value="Login">--%>
-                        <button class="submit btn-success btn btn-large" >Login</button>
+                        <button >Login</button>
 
                     </fieldset>
                 </form>
