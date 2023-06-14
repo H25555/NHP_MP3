@@ -1,5 +1,6 @@
 package controller;
 
+import dto.Pageable;
 import model.User;
 import service.UserService;
 import model.Role;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/admin/users")
 public class UserServlet extends HttpServlet {
@@ -27,8 +29,8 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
-                createUser(req, resp);
+            default:
+                showUser(req,resp);
         }
     }
 
@@ -39,10 +41,33 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
-                showCreate(req, resp);
+
             default:
+                showUser(req,resp);
         }
+    }
+
+    private void showUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String search = req.getParameter("search");
+
+        int page = 1;
+        if(req.getParameter("page") != null){
+            page = Integer.parseInt(req.getParameter("page"));
+        }
+        String sortBy = req.getParameter("sortby");
+        if(sortBy == null){
+            sortBy = "asc";
+        }
+        String nameField = req.getParameter("nameField");
+        if(nameField == null){
+            nameField = "user.id";
+        }
+        Pageable pageable = new Pageable(search, page, 5 , nameField, sortBy);
+        List<User> users = userService.findAll(pageable);
+        req.setAttribute("users",users);
+        req.setAttribute("pageable", pageable);
+        req.getRequestDispatcher("/users.jsp").forward(req,resp);
+
     }
 
     private void signup(HttpServletRequest req, HttpServletResponse resp) {
@@ -70,7 +95,7 @@ public class UserServlet extends HttpServlet {
         private void showCreate (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
         {
             req.setAttribute("roles", roleService.findAll());
-            req.getRequestDispatcher("/create.jsp").forward(req, resp);
+            req.getRequestDispatcher("/signup.jsp").forward(req, resp);
         }
 
         private void createUser (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -84,7 +109,7 @@ public class UserServlet extends HttpServlet {
             req.setAttribute("user", user);
             req.setAttribute("message", "Created");
             req.setAttribute("roles", roleService.findAll());
-            req.getRequestDispatcher("/create.jsp").forward(req, resp);
+            req.getRequestDispatcher("/signup.jsp").forward(req, resp);
 
         }
 

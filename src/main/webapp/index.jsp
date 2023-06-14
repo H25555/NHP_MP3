@@ -6,7 +6,5 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-
-<a href="songs">Hello Servlet</a>
 </body>
 </html>
