@@ -7,10 +7,16 @@
 </head>
 <body>
 
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="NHPmp3">Hello Servlet</a>
+
+<c:if test="${sessionScope.user != null}">
+    <a href="/home?action=logout">Logout</a>
+    <a href="/admin/users">User Management</a>
+</c:if>
+
+<c:if test="${sessionScope.user == null}">
+    <a href="/login">Login</a>
+</c:if>
+<%--<c:if test="${sessionScope.}"></c:if>--%>
 
 </body>
 </html>

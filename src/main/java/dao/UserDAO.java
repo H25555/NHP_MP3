@@ -12,13 +12,13 @@ import java.sql.*;
 
 public class UserDAO extends ConnectionDatabase {
     private final String CHECK_LOGIN = "SELECT * FROM nhp_mp3.user where user_name = ? and password = ?;";
-    private final String SELECT_USERS = "SELECT user.*, role.`name` as role_name " +
+    private final String SELECT_USERS = "SELECT user.*, user_role.`name` as role_name " +
             "FROM user LEFT JOIN role " +
             "ON user.role = role.id WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ? \n" +
             "        OR lower(role.`name`) LIKE ? ORDER BY ? ?  LIMIT ? OFFSET ? ;";
-    private final String SELECT_USERS_BY_ID = "SELECT user.*, role.`name` as role_name " +
-            "FROM user LEFT JOIN role " +
+    private final String SELECT_USERS_BY_ID = "SELECT user.*, user_role.`name` as role_name " +
+            "FROM user LEFT JOIN user_role " +
             "ON user.id_role = " +
             "role.id where user.id = ?;";
 
@@ -30,14 +30,18 @@ public class UserDAO extends ConnectionDatabase {
 
     private final String DELETE_USER = "DELETE FROM `user` WHERE (`id` = ?);";
     private String SELECT_ALL_USERS = "SELECT \n" +
-            "    user.*, role.`name` as role_name \n" +
+            "    user.*, user_role.`name` as role_name \n" +
             "FROM\n" +
             "    user\n" +
             "        LEFT JOIN\n" +
-            "    role ON users.id_role = role.id\n" +
+            "    user_role ON user.id_role = user_role.id\n" +
             "WHERE\n" +
-            "    lower(user.`name`) LIKE '%s' OR lower(user.password) LIKE '%s' \n" +
-            "        OR lower(role.`name`) LIKE '%s' order by %s %s LIMIT %d OFFSET %d  ;\n";
+            "    lower(user.`user_name`) LIKE ? OR lower(user.password) LIKE ? \n" +
+            "        OR lower(user_role.`name`) LIKE ? order by ? ? LIMIT ? OFFSET ?  ;\n";
+
+//    "SELECT user.*, user_role.`name` as role_name FROM user LEFT JOIN
+//    user_role ON user.id_role = user_role.id WHERE    lower(user.`user_name`) LIKE '%a%' OR lower(user.password) LIKE '%a%'
+//    OR lower(user_role.`name`) LIKE '%a%' order by user_name asc LIMIT 5 OFFSET 0  ;"
 
 
     private final String TOTAL_USERS = "SELECT \n" +
@@ -45,7 +49,7 @@ public class UserDAO extends ConnectionDatabase {
             "FROM\n" +
             "    user\n" +
             "        LEFT JOIN\n" +
-            "    role ON user.role = role.id\n" +
+            "    role ON user.role = user_role.id\n" +
             "WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ?\n" +
             "        OR lower(role.`name`) LIKE ? ;";
@@ -62,17 +66,15 @@ public class UserDAO extends ConnectionDatabase {
 
              PreparedStatement preparedStatement = connection
                      .prepareStatement(String
-                             .format(SELECT_ALL_USERS, search, search, search,
-                                     pageable.getNameField(), pageable.getSortBy(),
-                                     pageable.getTotalItems(),(pageable.getPage() - 1) * pageable.getTotalItems()))) {
+                             .format(SELECT_ALL_USERS))) {
             System.out.println(preparedStatement);
-//            preparedStatement.setString(1, search);
-//            preparedStatement.setString(2, search);
-//            preparedStatement.setString(3, search);
-//            preparedStatement.setInt(6, pageable.getTotalItems());
-//            preparedStatement.setInt(7, (pageable.getPage() - 1) * pageable.getTotalItems());
-//            preparedStatement.setString(4, pageable.getNameField());
-//            preparedStatement.setString(5, pageable.getSortBy());
+            preparedStatement.setString(1, search);
+            preparedStatement.setString(2, search);
+            preparedStatement.setString(3, search);
+            preparedStatement.setInt(6, pageable.getTotalItems());
+            preparedStatement.setInt(7, (pageable.getPage() - 1) * pageable.getTotalItems());
+            preparedStatement.setString(4, pageable.getNameField());
+            preparedStatement.setString(5, pageable.getSortBy());
 
             // Step 3: tương đương vowis cái sét
             ResultSet rs = preparedStatement.executeQuery();
@@ -84,7 +86,7 @@ public class UserDAO extends ConnectionDatabase {
                 //(truyên vào tên cột)
                 int id = rs.getInt("id");
                 //(truyên vào tên cột)
-                String name = rs.getString("name");
+                String name = rs.getString("user_name");
                 //(truyên vào tên cột)
                 String password = rs.getString("password");
                 String roleName = rs.getString("role_name");

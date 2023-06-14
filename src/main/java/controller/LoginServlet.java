@@ -23,7 +23,8 @@ public class LoginServlet extends HttpServlet {
         if(user != null && PasswordEncoder.check(password, user.getPassword())){
             HttpSession session = req.getSession();
             session.setAttribute("role", user.getRole().getName());
-            resp.sendRedirect("admin/users");
+            session.setAttribute("user",user);
+            resp.sendRedirect("/home");
             return;
         }
         req.setAttribute("errors", "Login Failed");
