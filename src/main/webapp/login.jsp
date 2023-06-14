@@ -42,7 +42,7 @@
 
         $.validator.setDefaults({
             submitHandler: function () {
-                window.open('dashboard.html', '_self', false)
+                window.open('index.jsp', '_self', false)
             }
         });
 
@@ -165,14 +165,14 @@
 
                 <br>
                 <br>
-                <form class="cmxform" id="signupForm" method="get" action="">
+                <form class="cmxform" id="signupForm" method="post" action="/login">
                     <fieldset>
                         <p>
                             <input id="username" name="username" type="text" placeholder="Username">
                             <input id="password" name="password" type="password" placeholder="Password">
                         </p>
-                        <input class="submit btn-success btn btn-large" type="submit" value="Login">
-
+<%--                        <input class="submit btn-success btn btn-large" type="submit" value="Login">--%>
+                        <button class="submit btn-success btn btn-large" >Login</button>
 
                     </fieldset>
                 </form>

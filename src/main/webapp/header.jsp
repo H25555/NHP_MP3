@@ -100,10 +100,10 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>
+                <li class="active"><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
                 <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
                 <li><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
-                <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
+                <li><a href="users.jsp"><i class="icon-user icon-white"></i> User</a></li>
 
             </ul>
         </div><!--/.nav-collapse -->
