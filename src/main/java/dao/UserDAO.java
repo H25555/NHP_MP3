@@ -20,7 +20,7 @@ public class UserDAO extends ConnectionDatabase {
     private final String SELECT_USERS_BY_ID = "SELECT user.*, user_role.`name` as role_name " +
             "FROM user LEFT JOIN user_role " +
             "ON user.id_role = " +
-            "role.id where user.id = ?;";
+            "user_role.id where user.id = ?;";
 
     private final String INSERT_USER = "INSERT INTO `user` (`name`, `password`, `id_role`) " +
             "VALUES (?, ?, ?);";
@@ -28,7 +28,7 @@ public class UserDAO extends ConnectionDatabase {
     private final String UPDATE_USER = "UPDATE `user` " +
             "SET `name` = ?, `password` = ?, role = ? WHERE (`id` = ?);";
 
-    private final String DELETE_USER = "DELETE FROM `user` WHERE (`id` = ?);";
+    private final String DELETE_USER = "DELETE  FROM `user` WHERE (`id` = ?);";
     private String SELECT_ALL_USERS = "SELECT \n" +
             "    user.*, user_role.`name` as role_name \n" +
             "FROM\n" +
@@ -233,4 +233,5 @@ public class UserDAO extends ConnectionDatabase {
             System.out.println(e.getMessage());
         }
     }
+
 }
