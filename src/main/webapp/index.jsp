@@ -17,6 +17,6 @@
 
 </body>
 </html>
-=======
-<c:redirect url="/songs"></c:redirect>
->>>>>>> Stashed changes
+
+<c:redirect url="admin/songs"></c:redirect>
+

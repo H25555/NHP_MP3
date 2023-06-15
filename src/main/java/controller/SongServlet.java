@@ -42,7 +42,7 @@ import java.util.List;
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 10
 )
-@WebServlet(name = "SongServlet", urlPatterns = "/songs")
+@WebServlet(name = "SongServlet", urlPatterns = "/admin/songs")
 
 
 public class SongServlet extends HttpServlet {
@@ -116,7 +116,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("authors", authors);
         req.setAttribute("categorys", categories);
         req.setAttribute("singers", singers);
-        req.getRequestDispatcher("createSong.jsp").forward(req, resp);
+        req.getRequestDispatcher("/createSong.jsp").forward(req, resp);
         resp.sendRedirect(req.getContextPath() + "/songs");
 
     }
@@ -183,7 +183,7 @@ public class SongServlet extends HttpServlet {
 //        req.setAttribute("filterCategory", filterCategory);
         req.setAttribute("pageable", pageable);
         req.setAttribute("songs", songService.findAll(pageable));
-        req.getRequestDispatcher("admin.jsp").forward(req,resp);
+        req.getRequestDispatcher("/admin.jsp").forward(req,resp);
 
 
     }

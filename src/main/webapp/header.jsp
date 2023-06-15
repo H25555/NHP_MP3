@@ -63,7 +63,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
-<<<<<<< Updated upstream
+
                 <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>
                 <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>
                 <c:if test="${sessionScope.user == null}">
@@ -72,12 +72,7 @@
                 <c:if test="${sessionScope.user != null}">
                     <li><a href="/home?action=logout"><i class="icon-lock icon-white"></i> Logout</a></li>
                 </c:if>
-=======
-                <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
-                <li><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
-                <li><a href="users.jsp"><i class="icon-user icon-white"></i> User</a></li>
 
->>>>>>> Stashed changes
             </ul>
         </div><!--/.nav-collapse -->
         <div style="display: flex;  position: absolute; right: 0;align-content: center; height: 100%">

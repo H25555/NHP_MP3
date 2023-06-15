@@ -34,7 +34,7 @@
                 </c:if>
             </td>
             <td>Name</td>
-            <td>Email</td>
+<%--            <td>Password</td>--%>
             <td>Role</td>
             <td>Action</td>
         </tr>
@@ -42,7 +42,7 @@
             <tr>
                 <td>${user.id}</td>
                 <td>${user.username}</td>
-                <td>${user.password}</td>
+<%--                <td>${user.password}</td>--%>
                 <td>${user.role.name}</td>
                 <td><a href="/admin/users?action=edit&id=${user.id}">Edit</a> </td>
                 <td><a href="/admin/users?action=delete&id=${user.id}" onclick="return confirm('Do you want to remove ${user.username}?')">Delete</a> </td>

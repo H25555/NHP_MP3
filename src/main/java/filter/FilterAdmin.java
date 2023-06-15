@@ -26,7 +26,7 @@ public class FilterAdmin implements Filter {
 
         String role = (String) session.getAttribute("role");
         //chua co thi dieu huong ve login
-        if (role == null) {
+        if (role == null || !role.equals("admin")) {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendRedirect("/login");
             return;

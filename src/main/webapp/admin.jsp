@@ -15,13 +15,13 @@
         <th style="text-align: center" scope="col">
           <c:if test="${pageable.sortBy== 'desc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.id">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.id">
               ID
             </a>
           </c:if>
           <c:if test="${pageable.sortBy== 'asc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.id">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.id">
               ID
             </a>
           </c:if>
@@ -30,13 +30,13 @@
 
           <c:if test="${pageable.sortBy== 'desc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.name">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.name">
               name
             </a>
           </c:if>
           <c:if test="${pageable.sortBy== 'asc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.name">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.name">
               name
             </a>
           </c:if>
@@ -44,13 +44,13 @@
         <th style="text-align: center" scope="col">
           <c:if test="${pageable.sortBy== 'desc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_author">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_author">
               Author
             </a>
           </c:if>
           <c:if test="${pageable.sortBy== 'asc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_author">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_author">
               Author
             </a>
           </c:if>
@@ -58,13 +58,13 @@
         <th style="text-align: center" scope="col">
           <c:if test="${pageable.sortBy== 'desc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=type">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=type">
               Category
             </a>
           </c:if>
           <c:if test="${pageable.sortBy== 'asc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=type">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=type">
               Category
             </a>
           </c:if>
@@ -72,13 +72,13 @@
         <th style="text-align: center" scope="col">
           <c:if test="${pageable.sortBy== 'desc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_singer">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_singer">
               Singer
             </a>
           </c:if>
           <c:if test="${pageable.sortBy== 'asc'}">
             <a
-                    href="/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_singer">
+                    href="/admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_singer">
               Singer
             </a>
           </c:if>
@@ -104,8 +104,8 @@
             <img style="height: 40px;width: 40px;border-radius: 50%" class="image" src="${song.image}">
           </td>
 
-          <td style="align-content: center; align-items: center"><a href="songs?action=edit&id=${song.id}"> <button type="button" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></button></a> </td>
-          <td style="align-content: center; align-items: center"><a href="songs?action=delete&id=${song.id}" onclick="return confirm('Do you want to remove ${song.name}?')"> <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button></a> </td>
+          <td style="align-content: center; align-items: center"><a href="/songs?action=edit&id=${song.id}"> <button type="button" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></button></a> </td>
+          <td style="align-content: center; align-items: center"><a href="/songs?action=delete&id=${song.id}" onclick="return confirm('Do you want to remove ${song.name}?')"> <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button></a> </td>
         </tr>
       </c:forEach>
       </tbody>
@@ -114,7 +114,7 @@
       <div style="text-align: center">
         <c:forEach begin="1" end="${pageable.totalPage}" var="page">
         <span>
-        <a href="/songs?page=${page}&search=${pageable.search}&sortBy=${pageable.sortBy}&nameField=${pageable.nameField}"><button>${page}</button></a>
+        <a href="/admin/songs?page=${page}&search=${pageable.search}&sortBy=${pageable.sortBy}&nameField=${pageable.nameField}"><button>${page}</button></a>
         </span>
         </c:forEach>
       </div>

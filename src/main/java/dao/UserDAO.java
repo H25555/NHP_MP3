@@ -13,8 +13,8 @@ import java.sql.*;
 public class UserDAO extends ConnectionDatabase {
     private final String CHECK_LOGIN = "SELECT * FROM nhp_mp3.user where user_name = ? and password = ?;";
     private final String SELECT_USERS = "SELECT user.*, user_role.`name` as role_name " +
-            "FROM user LEFT JOIN role " +
-            "ON user.role = role.id WHERE\n" +
+            "FROM user LEFT JOIN user_role " +
+            "ON user.role = user_role.id WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ? \n" +
             "        OR lower(role.`name`) LIKE ? ORDER BY ? ?  LIMIT ? OFFSET ? ;";
     private final String SELECT_USERS_BY_ID = "SELECT user.*, user_role.`name` as role_name " +
@@ -26,7 +26,7 @@ public class UserDAO extends ConnectionDatabase {
             "VALUES (?, ?, ?);";
 
     private final String UPDATE_USER = "UPDATE `user` " +
-            "SET `name` = ?, `password` = ?, role = ? WHERE (`id` = ?);";
+            "SET `user_name` = ?, `password` = ?, id_role = ? WHERE (`id` = ?);";
 
     private final String DELETE_USER = "DELETE  FROM `user` WHERE (`id` = ?);";
     private final String CHECK_EXIST_USERNAME ="SELECT * FROM nhp_mp3.user where user_name = ?";

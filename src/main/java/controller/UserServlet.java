@@ -70,7 +70,7 @@ public class UserServlet extends HttpServlet {
         int roleId = Integer.parseInt(req.getParameter("role"));
 
         Role role = roleService.findById(roleId);
-        User user = new User(id,username,password,role);
+        User user = new User(id,username,PasswordEncoder.encode(password),role);
         userService.updateUser(user);
 
         req.setAttribute("user",user);
