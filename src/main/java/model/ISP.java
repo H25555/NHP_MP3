@@ -3,12 +3,20 @@ package model;
 public class ISP {
     private int id;
     private Song song;
-    private User user;
+    private Playlist playlist;
 
-    public ISP(int id, Song song, User user) {
+    public ISP(int id, Song song, Playlist playlist) {
         this.id = id;
         this.song = song;
-        this.user = user;
+        this.playlist = playlist;
+    }
+
+    public ISP() {
+    }
+
+    public ISP(Song song, Playlist playlist) {
+        this.song = song;
+        this.playlist = playlist;
     }
 
     public int getId() {
@@ -27,11 +35,11 @@ public class ISP {
         this.song = song;
     }
 
-    public User getUser() {
-        return user;
+    public Playlist getPlaylist() {
+        return playlist;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
     }
 }

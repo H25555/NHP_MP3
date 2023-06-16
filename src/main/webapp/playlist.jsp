@@ -18,8 +18,7 @@
     <input type="hidden" name="id_user" value="${sessionScope.user.id}">
 </form>
 <c:forEach items="${list_playlist}" var="playlist">
-    <a href="" value="${playlist.id}">${playlist.name}</a>
+    <a href="#" value="${playlist.id}">${playlist.name}</a>
 </c:forEach>
-
 </body>
 </html>
