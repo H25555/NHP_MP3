@@ -1,20 +1,17 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<<<<<<< Updated upstream
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Main Page</title>
+    <title>JSP - Hello World</title>
 </head>
 <body>
-
-<%@ include file="header.jsp" %>
-<div class="container">
-
-
-</div>
-<%@ include file="footer.jsp" %>
-
+<h1><%= "Hello World!" %>
+</h1>
+<br/>
+<a href="songs">Student</a>
 </body>
 </html>
 

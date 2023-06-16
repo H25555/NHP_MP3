@@ -99,7 +99,7 @@ public class SongServlet extends HttpServlet {
         String image = request.getParameter("image");
         Song song = new Song(id,name,author,category,singer,song1,image);
         songService.editSong(song);
-        request.setAttribute("mesage","Update thành công");
+        request.setAttribute("message","Update thành công");
         request.setAttribute("song",song);
         request.setAttribute("author",author);
         request.setAttribute("category",category);
@@ -128,7 +128,6 @@ public class SongServlet extends HttpServlet {
         Category category = categoryService.findByID(IDCategory);
         int IDSinger = Integer.parseInt(request.getParameter("singer"));
         Singer singer = singerService.findByID(IDSinger);
-
 
 
         String UPLOAD_DIR = "assets/music/";

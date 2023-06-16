@@ -12,6 +12,9 @@ import java.util.List;
 public class SingerDAO extends ConnectionDatabase{
     private final String SELECT_USER = "SELECT * FROM singer;";
     private final String SELECT_USER_BY_ID = "SELECT * FROM singer where id = ?;";
+    private final String CREATE_USER = "INSERT INTO `singer` (`name`) VALUES (?)";
+    private final String EDIT_USER = "UPDATE `singer` SET `name` = ? WHERE (`id` = ?)";
+    private final String DELETE_USER = "DELETE FROM `singer` WHERE (`id` = ?)";
 
     public List<Singer> findAll(){
         List<Singer> singers = new ArrayList<>();
@@ -48,5 +51,37 @@ public class SingerDAO extends ConnectionDatabase{
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public void createSinger(Singer singer){
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER)) {
+            preparedStatement.setString(1, singer.getName());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void editSinger(Singer singer){
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(EDIT_USER)) {
+            preparedStatement.setString(1, singer.getName());
+            preparedStatement.setInt(2,singer.getId());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void deleteSinger(int id) {
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

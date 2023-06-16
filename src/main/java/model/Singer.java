@@ -9,6 +9,10 @@ public class Singer {
         this.name = name;
     }
 
+    public Singer(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

@@ -14,4 +14,13 @@ public class AuthorService {
     public Author findByID(int id){
         return authorDAO.findById(id);
     }
+    public void createAuthor(Author author){
+        authorDAO.createAuthor(author);
+    }
+    public void editAuthor(Author author){
+        authorDAO.editAuthor(author);
+    }
+    public void deleteAuthor(int id){
+        authorDAO.deleteAuthor(id);
+    }
 }

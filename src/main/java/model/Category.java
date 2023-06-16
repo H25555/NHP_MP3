@@ -9,7 +9,8 @@ public class Category {
         this.name = name;
     }
 
-    public Category() {
+    public Category(String name) {
+        this.name = name;
     }
 
     public int getId() {
