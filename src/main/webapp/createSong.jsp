@@ -86,6 +86,7 @@
 <div class="container">
     <div class="overlay">
 
+<<<<<<< Updated upstream
         <form id="form-create-song" action="/songs" method="post" enctype="multipart/form-data">
             <div>
                 <label for="name">Name</label>
@@ -148,6 +149,52 @@
                 <label class="message-error" id="image-message"></label>
             </div>
             <a href="#" onclick="submitForm()">Create</a>
+=======
+        <form action="songs?action=create" method="post" enctype="multipart/form-data">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="${song.name}"/>
+            <label for="author">Author</label>
+            <select name="author" id="author">
+                <option value="">--None--</option>
+                <c:forEach items="${authors}" var="author">
+                    <c:if test="${author.id == song.author.id}">
+                        <option value="${author.id}" selected>${author.name}</option>
+                    </c:if>
+                    <c:if test="${author.id != song.author.id}">
+                        <option value="${author.id}">${author.name}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
+            <label for="category">Category</label>
+            <select name="category" id="category">
+                <option value="">--None--</option>
+                <c:forEach items="${categorys}" var="category">
+                    <c:if test="${category.id == song.category.id}">
+                        <option value="${category.id}" selected>${category.name}</option>
+                    </c:if>
+                    <c:if test="${category.id != song.category.id}">
+                        <option value="${category.id}">${category.name}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
+            <label for="singer">Singer</label>
+            <select name="singer" id="singer">
+                <option value="">--None--</option>
+                <c:forEach items="${singers}" var="singer">
+                    <c:if test="${singer.id == song.singer.id}">
+                        <option value="${singer.id}" selected>${singer.name}</option>
+                    </c:if>
+                    <c:if test="${singer.id != song.singer.id}">
+                        <option value="${singer.id}">${singer.name}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
+            <label for="musicFile">Music File:</label>
+            <input type="file" id="musicFile" name="filePart"><br><br>
+            <label for="image">Image</label>
+            <input type="text" name="image" id="image" value="${song.image}"/>
+            <button type="submit">Create</button>
+>>>>>>> Stashed changes
         </form>
         <a href="/songs">Back</a>
     </div>

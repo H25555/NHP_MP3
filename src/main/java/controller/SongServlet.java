@@ -18,6 +18,7 @@ import service.CategoryService;
 import service.SingerService;
 import service.SongService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +26,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -120,7 +125,7 @@ public class SongServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/songs");
 
     }
-    public void createSong(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void createSong(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
         String name = request.getParameter("name");
         int IDAuthor = Integer.parseInt(request.getParameter("author"));
         Author author = authorService.findByID(IDAuthor);
@@ -128,37 +133,61 @@ public class SongServlet extends HttpServlet {
         Category category = categoryService.findByID(IDCategory);
         int IDSinger = Integer.parseInt(request.getParameter("singer"));
         Singer singer = singerService.findByID(IDSinger);
+        String image = request.getParameter("image");
 
+<<<<<<< Updated upstream
 
         String UPLOAD_DIR = "assets/music/";
+=======
+        String UPLOAD_DIR = "assets/music";
+>>>>>>> Stashed changes
         Part filePart = request.getPart("filePart");
         String fileName = getFileName(filePart);
 
-        if (filePart != null && !fileName.isEmpty()) {
-            String filePath = UPLOAD_DIR + fileName;
-            saveFileToServer(filePart, filePath);
-            Song song = new Song(name, author, category, singer, filePath, null);
+        if (filePart != null && fileName != null && !fileName.isEmpty()) {
+            fileName = fileName.replace("\"", "");
+            String filePath = UPLOAD_DIR + "/" + fileName;
+
+            saveFileToServer(filePart, filePath, fileName);
+            Song song = new Song(name, author, category, singer, filePath, image);
             songDAO.saveSongToDatabase(song);
-            response.getWriter().println("Upload and create successful!");
+            request.setAttribute("message", "create thành công");
+            request.setAttribute("song", song);
+            request.setAttribute("author", author);
+            request.setAttribute("category", category);
+            request.setAttribute("singer", singer);
+            request.getRequestDispatcher("/createSong.jsp").forward(request, response);
         } else {
             response.getWriter().println("Upload failed!");
         }
-
-        // Rest of your code
     }
 
-    private void saveFileToServer(Part filePart, String filePath) throws IOException {
-        Path destination = Paths.get(filePath);
-        Files.copy(filePart.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
+    private void saveFileToServer(Part filePart, String filePath, String fileName) throws IOException, URISyntaxException {
+        if (filePart != null && filePath != null) {
+            String uploadDir = getServletContext().getRealPath("/assets/music");
+            Path p = Paths.get(uploadDir + File.separator + fileName);
+            Path destination = Paths.get(filePath);
+            InputStream inputStream = filePart.getInputStream();
+            Files.copy(inputStream,  p, StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
 
-
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] elements = contentDisposition.split(";");
+        for (String element : elements) {
+            if (element.trim().startsWith("filename")) {
+                String fileName = element.substring(element.indexOf('=') + 1).trim().replace("\"", "");
+                fileName = fileName.replace("\\", "/");
+                return fileName;
+            }
+        }
+        return null;
+    }
 
     private void showSong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String filterAuthor = req.getParameter("author");
-//        String filterSinger = req.getParameter("singer");
-//        String filterCategory = req.getParameter("category");
+
         String search = req.getParameter("search");
         int page = 1;
         if(req.getParameter("page") != null){
@@ -173,18 +202,42 @@ public class SongServlet extends HttpServlet {
             nameField = "song.id";
         }
         Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy);
-//        pageable.setFilterAuthor(filterAuthor);
-//        pageable.setFilterSinger(filterSinger);
-//        pageable.setFilterCategory(filterCategory);
-//
-//        req.setAttribute("filterAuthor", filterAuthor);
-//        req.setAttribute("filterSinger", filterSinger);
-//        req.setAttribute("filterCategory", filterCategory);
+
         req.setAttribute("pageable", pageable);
         req.setAttribute("songs", songService.findAll(pageable));
         req.getRequestDispatcher("/admin.jsp").forward(req,resp);
 
 
+    }
+
+    private void showFilterSong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String filterAuthor = req.getParameter("author");
+        String filterSinger = req.getParameter("singer");
+        String filterCategory = req.getParameter("category");
+        String search = req.getParameter("search");
+        int page = 1;
+        if(req.getParameter("page") != null){
+            page = Integer.parseInt(req.getParameter("page"));
+        }
+        String sortBy = req.getParameter("sortBy");
+        if(sortBy == null){
+            sortBy = "asc";
+        }
+        String nameField = req.getParameter("nameField");
+        if(nameField == null){
+            nameField = "song.id";
+        }
+        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy);
+        pageable.setFilterAuthor(filterAuthor);
+        pageable.setFilterSinger(filterSinger);
+        pageable.setFilterCategory(filterCategory);
+
+        req.setAttribute("filterAuthor", filterAuthor);
+        req.setAttribute("filterSinger", filterSinger);
+        req.setAttribute("filterCategory", filterCategory);
+        req.setAttribute("pageable", pageable);
+        req.setAttribute("songs", songDAO.showFilter(pageable,filterAuthor,filterSinger,filterCategory));
+        req.getRequestDispatcher("admin.jsp").forward(req,resp);
     }
     public void deleteSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -193,36 +246,24 @@ public class SongServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String fileName = req.getParameter("song");
-//        String filePath = "assets/music/" + fileName + ".mp3";
-//        String name = req.getParameter("name");
-//        Song song = new Song(name, filePath);
-//        resp.sendRedirect(req.getContextPath() + "songs");
-        String action = req.getParameter("action");
-        if (action == null){
-            action = "";
-        }
-        switch (action){
-            case "create":
-                createSong(req,resp);
-                break;
-            case "edit":
-                editSong(req,resp);
-                break;
-            default:
-                showSong(req,resp);
-        }
-    }
-    private String getFileName(Part part) {
-        String contentDisposition = part.getHeader("content-disposition");
-        String[] elements = contentDisposition.split(";");
-        for (String element : elements) {
-            if (element.trim().startsWith("filename")) {
-                return element.substring(element.indexOf('=') + 1).trim().replace("\"", "/");
+        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String action = req.getParameter("action");
+            if (action == null){
+                action = "";
+            }
+            switch (action){
+                case "create":
+                    try {
+                        createSong(req,resp);
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case "edit":
+                    editSong(req,resp);
+                    break;
+                default:
+                    showSong(req,resp);
             }
         }
-        return null;
-    }
-
 }

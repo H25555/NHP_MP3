@@ -31,9 +31,6 @@ public class FilterAdmin implements Filter {
             httpServletResponse.sendRedirect("/login");
             return;
         }
-        //bo qua
         chain.doFilter(request, response);
-
-
     }
 }

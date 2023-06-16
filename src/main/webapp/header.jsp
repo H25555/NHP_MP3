@@ -63,6 +63,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
+<<<<<<< Updated upstream
 
                 <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>
                 <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>
@@ -73,6 +74,21 @@
                     <li><a href="/home?action=logout"><i class="icon-lock icon-white"></i> Logout</a></li>
                 </c:if>
 
+=======
+<%--<<<<<<< Updated upstream--%>
+<%--                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>--%>
+<%--                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>--%>
+<%--                <c:if test="${sessionScope.user == null}">--%>
+<%--                    <li><a href="/login"><i class="icon-lock icon-white"></i> Login</a></li>--%>
+<%--                </c:if>--%>
+<%--                <c:if test="${sessionScope.user != null}">--%>
+<%--                    <li><a href="/home?action=logout"><i class="icon-lock icon-white"></i> Logout</a></li>--%>
+<%--                </c:if>--%>
+<%--=======--%>
+                <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
+                <li><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
+                <li><a href="users.jsp"><i class="icon-user icon-white"></i> User</a></li>
+>>>>>>> Stashed changes
             </ul>
         </div><!--/.nav-collapse -->
         <div style="display: flex;  position: absolute; right: 0;align-content: center; height: 100%">
@@ -81,6 +97,12 @@
             <div class="d-flex justify-content-between"
                  style="padding-left: 4%; margin-bottom: auto;margin-top: auto;align-content: center">
                 <form action="/songs" method="get" style="padding-right: 4%; display: flex">
+                    <div style=" padding-right: 100px">
+                        <a href="songs?action=create">
+                            <button style="border-radius: 20px;height: 40px" type="button" class="btn btn-success mr-1"><i class="fas fa-plus"></i> Create Song</button>
+                        </a>
+
+                    </div>
                     <div style="display: flex">
                         <input style=" height: 40px;width: 300px;border-radius: 20px" type="search"
                                name="search" id="search" value="${pageable.search}" onsearch="onClearSearch()"/>
