@@ -1,17 +1,67 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Windows 10
-  Date: 13/06/2023
-  Time: 2:44 CH
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@ include file="header.jsp" %>
+<style>
+    .containerr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.5); /* Màu sắc nền của khung mờ */
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        width: 30%;
+    }
+
+
+
+    label, input, select {
+        font-size: 16px;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    select {
+        appearance: none;
+        background-repeat: no-repeat;
+        background-position: right center;
+        padding-right: 25px;
+    }
+
+    input[type="text"]:hover,
+    input[type="text"]:focus,
+    select:hover,
+    select:focus {
+        border-color: #0099ff;
+        outline: none;
+    }
+
+
+
+
+
+    a {
+        color: #0099ff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+</style>
+<div class="containerr">
+<div class="overlay">
 <h1>${action}</h1>
 <form action="/admin/users" method="get">
     <input type="search" name="search" id="search" value="${pageable.search}" onsearch="onClearSearch()" />
@@ -56,10 +106,6 @@
 
     </ul>
 </c:if>
-<script>
-    function onClearSearch(){
-        searchButton.click();
-    }
-</script>
-</body>
-</html>
+</div>
+</div>
+<%@ include file="footer.jsp" %>

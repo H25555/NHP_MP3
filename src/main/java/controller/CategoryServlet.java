@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CategoryServlet", urlPatterns = "/categorys")
+@WebServlet(name = "CategoryServlet", urlPatterns = "/admin/categorys")
 
 public class CategoryServlet extends HttpServlet {
     CategoryService categoryService = new CategoryService();
@@ -41,7 +41,7 @@ public class CategoryServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Category category = categoryService.findByID(id);
         req.setAttribute("category",category);
-        req.getRequestDispatcher("editCategory.jsp").forward(req,resp);
+        req.getRequestDispatcher("/editCategory.jsp").forward(req,resp);
     }
     public void editCategory(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -50,13 +50,13 @@ public class CategoryServlet extends HttpServlet {
         categoryService.editCategory(category);
         request.setAttribute("message","edit thành công");
         request.setAttribute("category",category);
-        request.getRequestDispatcher("editCategory.jsp").forward(request,response);
+        request.getRequestDispatcher("/editCategory.jsp").forward(request,response);
     }
 
     private void showCreateCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Category> categorys = categoryService.findAll();
         req.setAttribute("categorys",categorys);
-        req.getRequestDispatcher("createCategory.jsp").forward(req,resp);
+        req.getRequestDispatcher("/createCategory.jsp").forward(req,resp);
     }
 
     private void createCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,7 +65,7 @@ public class CategoryServlet extends HttpServlet {
         categoryService.createCategory(category);
         req.setAttribute("message", "create thành công");
         req.setAttribute("category",category);
-        req.getRequestDispatcher("createCategory.jsp").forward(req,resp);
+        req.getRequestDispatcher("/createCategory.jsp").forward(req,resp);
     }
     public void deleteCategory(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -76,7 +76,7 @@ public class CategoryServlet extends HttpServlet {
     private void showCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Category> categorys = categoryService.findAll();
         req.setAttribute("categorys",categorys);
-        req.getRequestDispatcher("category.jsp").forward(req,resp);
+        req.getRequestDispatcher("/category.jsp").forward(req,resp);
     }
 
     @Override

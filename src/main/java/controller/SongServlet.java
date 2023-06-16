@@ -51,7 +51,7 @@ import java.util.List;
 
 
 public class SongServlet extends HttpServlet {
-    private int TOTAL_ITEMS = 5;
+    private int TOTAL_ITEMS = 10;
     SongService songService = new SongService();
     AuthorService authorService = new AuthorService();
     CategoryService categoryService = new CategoryService();
@@ -135,12 +135,9 @@ public class SongServlet extends HttpServlet {
         Singer singer = singerService.findByID(IDSinger);
         String image = request.getParameter("image");
 
-<<<<<<< Updated upstream
 
-        String UPLOAD_DIR = "assets/music/";
-=======
         String UPLOAD_DIR = "assets/music";
->>>>>>> Stashed changes
+
         Part filePart = request.getPart("filePart");
         String fileName = getFileName(filePart);
 

@@ -9,11 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="Carlos Alvarez - Alvarez.is">
 
-    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css"/>
 
-    <link href="./css/main.css" rel="stylesheet">
-    <link href="./css/font-style.css" rel="stylesheet">
-    <link href="./css/flexslider.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/bootstrap/css/bootstrap.min.css"></c:url>"/>
+
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/font-style.css" rel="stylesheet">
+    <link href="../css/flexslider.css" rel="stylesheet">
 
 
 
@@ -24,6 +25,52 @@
         body {
             padding-top: 60px;
         }
+        .selected {
+            background-color: #3d3d3d; /* Thay đổi màu nền thành màu đỏ (#ff0000) */
+        }
+        #liii{
+            color: #9d9d9d;
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        .ulll{
+            color: #9d9d9d;
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7); /* Màu sắc nền của khung mờ */
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            width: 100%;
+            left: 0;
+        }
+        #liii:hover{
+            color: white;
+        }
+        #liii:hover .ulll{
+
+            list-style: none;
+            display: block;
+        }
+
+
+        .aa{
+            color: #9d9d9d;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+        .aa:hover{
+            color: white;
+        }
+        .myself a {
+            color: inherit; /* Kế thừa màu chữ từ phần tử cha */
+            background-color: inherit; /* Kế thừa màu nền từ phần tử cha */
+            text-decoration: none; /* Bỏ gạch chân của liên kết */
+        }
+
     </style>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -38,6 +85,7 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </head>
@@ -46,6 +94,15 @@
     function onClearSearch() {
         searchButton.click();
     }
+    $(document).ready(function() {
+        var currentPage = window.location.pathname; // Lấy đường dẫn hiện tại
+
+        $('.myself').removeClass('selected'); // Loại bỏ lớp `selected` từ tất cả các mục
+        $('.myself a[href="' + currentPage + '"]').parent().addClass('selected'); // Thêm lớp `selected` cho mục trùng khớp với đường dẫn hiện tại
+
+        // Lưu trạng thái đã chọn vào session storage
+        sessionStorage.setItem('selectedLink', currentPage);
+    });
 </script>
 <!-- NAVIGATION MENU -->
 
@@ -58,15 +115,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.jsp"> NHP mp3</a>
+            <a class="navbar-brand" href="/admin/songs"> NHP mp3</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.jsp"><i class="icon-home icon-white"></i> Home</a></li>
-<<<<<<< Updated upstream
+                <li class="myself"><a href="/admin/songs"><i class="icon-home icon-white"></i>Song Management</a></li>
 
-                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>
-                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>
+                <li class="myself"><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>
+                <li  id="liii" class="myself"><i class="icon-user icon-white"></i>ACS management
+                    <ul class="ulll">
+                        <li class="aa"><a href="/admin/authors">Author</a></li>
+                        <li class="aa"><a href="/admin/categorys">Category</a></li>
+                        <li class="aa"><a href="/admin/singers">Singer</a></li>
+                    </ul>
+                </li>
                 <c:if test="${sessionScope.user == null}">
                     <li><a href="/login"><i class="icon-lock icon-white"></i> Login</a></li>
                 </c:if>
@@ -74,7 +136,7 @@
                     <li><a href="/home?action=logout"><i class="icon-lock icon-white"></i> Logout</a></li>
                 </c:if>
 
-=======
+
 <%--<<<<<<< Updated upstream--%>
 <%--                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>--%>
 <%--                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>--%>
@@ -85,10 +147,7 @@
 <%--                    <li><a href="/home?action=logout"><i class="icon-lock icon-white"></i> Logout</a></li>--%>
 <%--                </c:if>--%>
 <%--=======--%>
-                <li><a href="table.jsp"><i class="icon-th icon-white"></i> Tables</a></li>
-                <li><a href="login.jsp"><i class="icon-lock icon-white"></i> Login</a></li>
-                <li><a href="users.jsp"><i class="icon-user icon-white"></i> User</a></li>
->>>>>>> Stashed changes
+
             </ul>
         </div><!--/.nav-collapse -->
         <div style="display: flex;  position: absolute; right: 0;align-content: center; height: 100%">
@@ -96,9 +155,9 @@
 
             <div class="d-flex justify-content-between"
                  style="padding-left: 4%; margin-bottom: auto;margin-top: auto;align-content: center">
-                <form action="/songs" method="get" style="padding-right: 4%; display: flex">
-                    <div style=" padding-right: 100px">
-                        <a href="songs?action=create">
+                <form action="/admin/songs" method="get" style="padding-right: 4%; display: flex">
+                    <div style=" padding-right: 50px">
+                        <a href="/admin/songs?action=create">
                             <button style="border-radius: 20px;height: 40px" type="button" class="btn btn-success mr-1"><i class="fas fa-plus"></i> Create Song</button>
                         </a>
 

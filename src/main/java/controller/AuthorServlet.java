@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-@WebServlet(name = "authorService", urlPatterns = "/authors")
+@WebServlet(name = "authorService", urlPatterns = "/admin/authors")
 public class AuthorServlet extends HttpServlet {
     AuthorService authorService = new AuthorService();
 
@@ -39,7 +39,7 @@ public class AuthorServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Author authors = authorService.findByID(id);
         req.setAttribute("authors",authors);
-        req.getRequestDispatcher("editAuthor.jsp").forward(req,resp);
+        req.getRequestDispatcher("/editAuthor.jsp").forward(req,resp);
     }
     public void editAuthor(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
