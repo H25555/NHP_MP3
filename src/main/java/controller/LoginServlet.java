@@ -1,5 +1,7 @@
 package controller;
 
+import dao.LikeDAO;
+import model.Like;
 import model.User;
 import service.UserService;
 import utils.PasswordEncoder;
@@ -17,11 +19,13 @@ import java.io.IOException;
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     UserService userService = new UserService();
+    LikeDAO likeDAO = new LikeDAO();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         User user = userService.findByUsername(username);
+
         if(user != null && PasswordEncoder.check(password, user.getPassword())){
             HttpSession session = req.getSession();
             session.setAttribute("role", user.getRole().getName());

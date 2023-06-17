@@ -31,7 +31,7 @@
             <td>Song</td>
             <td>Image</td>
         </tr>
-        <c:forEach items="${songs}" var="song">
+        <c:forEach items="${songs}" var="song" >
             <tr>
                 <td>${song.id}</td>
                 <td>${song.name}</td>
@@ -40,7 +40,7 @@
                 <td>${song.singer.name}</td>
                 <td>
 
-                    <audio controls class="song-play" onclick="console.log(${song.id})" id="audio${status.index}">
+                    <audio controls class="song-play" onplay="getView(${song.id})" onpause="getDuration()" id="audio${status.index}">
                         <source src="${song.song}" type="audio/mp3">
                     </audio>
                 </td>
@@ -56,4 +56,22 @@
     </table>
 </c:if>
 </body>
+<script>
+    var countSecond;
+    var startDate;
+    var pauseDate = 0;
+    var timeOut;
+        // ?action=view&+
+    function getView(idsong){
+       timeOut = setTimeout(() => {
+            fetch('http://localhost:8080/api?id=' + idsong)
+        }, (60 - pauseDate) * 1000)
+    }
+    function getDuration(){
+        clearTimeout(timeOut);
+          let diff = (new Date() - startDate);
+         pauseDate = Math.floor((diff / 1000));
+    }
+
+</script>
 </html>

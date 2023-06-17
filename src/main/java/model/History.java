@@ -1,9 +1,23 @@
 package model;
 
-public class Like {
+public class History {
     private int id;
     private User user;
     private Song song;
+
+    public History(int id, User user, Song song) {
+        this.id = id;
+        this.user = user;
+        this.song = song;
+    }
+
+    public History() {
+    }
+
+    public History(User user, Song song) {
+        this.user = user;
+        this.song = song;
+    }
 
     public int getId() {
         return id;
@@ -26,17 +40,6 @@ public class Like {
     }
 
     public void setSong(Song song) {
-        this.song = song;
-    }
-
-    public Like(int id, User user, Song song) {
-        this.id = id;
-        this.user = user;
-        this.song = song;
-    }
-
-    public Like(User user, Song song) {
-        this.user = user;
         this.song = song;
     }
 }

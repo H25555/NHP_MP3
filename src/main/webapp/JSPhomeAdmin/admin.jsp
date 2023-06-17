@@ -123,7 +123,7 @@
                     <td style="align-content: center; align-items: center">${song.singer.name}</td>
                     <td style="align-content: center; align-items: center">
                             <%--                    ${song.image}--%>
-                        <audio style="height: 30px" controls class="song-play" onplaying="onPlay(${song.id})" id="audio${status.index}">
+                        <audio style="height: 30px" controls class="song-play" onplaying="getView(${song.id})" onpause="getDuration()" id="audio${status.index}">
                             <source src="<c:url value='/${song.song}'></c:url>" type="audio/mp3">
                         </audio>
                     </td>
@@ -131,7 +131,9 @@
                             <%--                                            ${song.song}--%>
                         <img style="height: 40px;width: 40px;border-radius: 50%" class="image" src="${song.image}">
                     </td>
-
+                    <td>
+                        <button onclick="like(${song.id})"><i class="fa-solid fa-heart"></i></button>
+                    </td>
                     <td style="align-content: center; align-items: center"><a href="songs?action=edit&id=${song.id}">
                         <button type="button" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></button>
                     </a></td>
@@ -158,10 +160,25 @@
 </div>
 
 <script>
-    function onPlay(id){
-        const timeOut = setTimeout(() => {
-            fetch('http://localhost:8080/api?id='+id);
-        }, 60*1000)
+    var countSecond;
+    var startDate;
+    var pauseDate = 0;
+    var timeOut;
+    // ?action=view&+
+    function getView(idsong){
+        startDate = new Date();
+        timeOut = setTimeout(() => {
+            fetch('http://localhost:8080/api?action=view&id=' + idsong)
+            pauseDate =0;
+        }, (60 - pauseDate) * 1000)
+    }
+    function getDuration(){
+        clearTimeout(timeOut);
+        let diff = (new Date() - startDate);
+        pauseDate = Math.floor((diff / 1000));
+    }
+    function like(idsong){
+        fetch('http://localhost:8080/api?action=like&id=' + idsong)
     }
 </script>
 <%@ include file="../footer.jsp" %>
