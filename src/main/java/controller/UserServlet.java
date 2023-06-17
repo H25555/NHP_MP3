@@ -105,7 +105,7 @@ public class UserServlet extends HttpServlet {
         List<User> users = userService.findAll(pageable);
         req.setAttribute("users",users);
         req.setAttribute("pageable", pageable);
-        req.getRequestDispatcher("/users.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPuser/users.jsp").forward(req,resp);
 
     }
 
@@ -122,7 +122,7 @@ public class UserServlet extends HttpServlet {
         User user = userService.login(username, password);
         if (user == null) {
 //            req.setAttribute("error", "Tài khoản không tồn tại hoặc mật khẩu không đúng !");
-            req.getRequestDispatcher("/signin.jsp").forward(req, resp);
+            req.getRequestDispatcher("/JSPurer/signin.jsp").forward(req, resp);
 //            response.sendRedirect("user?action=login");
         } else {
             HttpSession session = req.getSession();
@@ -134,7 +134,7 @@ public class UserServlet extends HttpServlet {
         private void showCreate (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
         {
             req.setAttribute("roles", roleService.findAll());
-            req.getRequestDispatcher("/signup.jsp").forward(req, resp);
+            req.getRequestDispatcher("/JSPuser/signup.jsp").forward(req, resp);
         }
 
         private void createUser (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -148,7 +148,7 @@ public class UserServlet extends HttpServlet {
             req.setAttribute("user", user);
             req.setAttribute("message", "Created");
             req.setAttribute("roles", roleService.findAll());
-            req.getRequestDispatcher("/signup.jsp").forward(req, resp);
+            req.getRequestDispatcher("/JSPuser/signup.jsp").forward(req, resp);
 
         }
 

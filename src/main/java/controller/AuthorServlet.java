@@ -39,7 +39,7 @@ public class AuthorServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Author authors = authorService.findByID(id);
         req.setAttribute("authors",authors);
-        req.getRequestDispatcher("/editAuthor.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPauthor/editAuthor.jsp").forward(req,resp);
     }
     public void editAuthor(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -48,12 +48,12 @@ public class AuthorServlet extends HttpServlet {
         authorService.editAuthor(author);
         request.setAttribute("message","edit thành công");
         request.setAttribute("author",author);
-        request.getRequestDispatcher("/editAuthor.jsp").forward(request,response);
+        request.getRequestDispatcher("/JSPauthor/editAuthor.jsp").forward(request,response);
     }
     private void showCreatAuthor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Author> authors = authorService.findAll();
         req.setAttribute("authors",authors);
-        req.getRequestDispatcher("/createAuthor.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPauthor/createAuthor.jsp").forward(req,resp);
     }
     public void createAuthor(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -61,13 +61,13 @@ public class AuthorServlet extends HttpServlet {
         authorService.createAuthor(author);
         request.setAttribute("message", "Thêm thành công");
         request.setAttribute("author",author);
-        request.getRequestDispatcher("/createAuthor.jsp").forward(request,response);
+        request.getRequestDispatcher("/JSPauthor/createAuthor.jsp").forward(request,response);
     }
 
     private void showAuthor(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Author> authors = authorService.findAll();
         req.setAttribute("authors",authors);
-        req.getRequestDispatcher("/author.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPauthor/author.jsp").forward(req,resp);
     }
     public void deleteAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));

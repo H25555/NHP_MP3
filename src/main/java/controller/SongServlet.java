@@ -89,7 +89,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("authors",authors);
         req.setAttribute("categorys",categories);
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("/editSong.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPhomeAdmin/editSong.jsp").forward(req,resp);
     }
     public void editSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -109,7 +109,7 @@ public class SongServlet extends HttpServlet {
         request.setAttribute("author",author);
         request.setAttribute("category",category);
         request.setAttribute("singer",singer);
-        request.getRequestDispatcher("/editSong.jsp").forward(request,response);
+        request.getRequestDispatcher("/JSPhomeAdmin/editSong.jsp").forward(request,response);
 
     }
 
@@ -121,7 +121,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("authors", authors);
         req.setAttribute("categorys", categories);
         req.setAttribute("singers", singers);
-        req.getRequestDispatcher("/createSong.jsp").forward(req, resp);
+        req.getRequestDispatcher("/JSPhomeAdmin/createSong.jsp").forward(req, resp);
         resp.sendRedirect(req.getContextPath() + "/songs");
 
     }
@@ -153,7 +153,7 @@ public class SongServlet extends HttpServlet {
             request.setAttribute("author", author);
             request.setAttribute("category", category);
             request.setAttribute("singer", singer);
-            request.getRequestDispatcher("/createSong.jsp").forward(request, response);
+            request.getRequestDispatcher("/JSPhomeAdmin/createSong.jsp").forward(request, response);
         } else {
             response.getWriter().println("Upload failed!");
         }
@@ -200,42 +200,44 @@ public class SongServlet extends HttpServlet {
         }
         Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy);
 
+        List<Song> songs = songDAO.showFilter(pageable, 2, 2, 2);
+
         req.setAttribute("pageable", pageable);
-        req.setAttribute("songs", songService.findAll(pageable));
-        req.getRequestDispatcher("/admin.jsp").forward(req,resp);
+        req.setAttribute("songs", songs);
+        req.getRequestDispatcher("/JSPhomeAdmin/admin.jsp").forward(req,resp);
 
 
     }
 
-    private void showFilterSong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        String filterAuthor = req.getParameter("author");
-        String filterSinger = req.getParameter("singer");
-        String filterCategory = req.getParameter("category");
-        String search = req.getParameter("search");
-        int page = 1;
-        if(req.getParameter("page") != null){
-            page = Integer.parseInt(req.getParameter("page"));
-        }
-        String sortBy = req.getParameter("sortBy");
-        if(sortBy == null){
-            sortBy = "asc";
-        }
-        String nameField = req.getParameter("nameField");
-        if(nameField == null){
-            nameField = "song.id";
-        }
-        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy);
-        pageable.setFilterAuthor(filterAuthor);
-        pageable.setFilterSinger(filterSinger);
-        pageable.setFilterCategory(filterCategory);
-
-        req.setAttribute("filterAuthor", filterAuthor);
-        req.setAttribute("filterSinger", filterSinger);
-        req.setAttribute("filterCategory", filterCategory);
-        req.setAttribute("pageable", pageable);
-        req.setAttribute("songs", songDAO.showFilter(pageable,filterAuthor,filterSinger,filterCategory));
-        req.getRequestDispatcher("admin.jsp").forward(req,resp);
-    }
+//    private void showFilterSong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+//        String filterAuthor = req.getParameter("author");
+//        String filterSinger = req.getParameter("singer");
+//        String filterCategory = req.getParameter("category");
+//        String search = req.getParameter("search");
+//        int page = 1;
+//        if(req.getParameter("page") != null){
+//            page = Integer.parseInt(req.getParameter("page"));
+//        }
+//        String sortBy = req.getParameter("sortBy");
+//        if(sortBy == null){
+//            sortBy = "asc";
+//        }
+//        String nameField = req.getParameter("nameField");
+//        if(nameField == null){
+//            nameField = "song.id";
+//        }
+//        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy);
+//        pageable.setFilterAuthor(filterAuthor);
+//        pageable.setFilterSinger(filterSinger);
+//        pageable.setFilterCategory(filterCategory);
+//
+//        req.setAttribute("filterAuthor", filterAuthor);
+//        req.setAttribute("filterSinger", filterSinger);
+//        req.setAttribute("filterCategory", filterCategory);
+//        req.setAttribute("pageable", pageable);
+//        req.setAttribute("songs", songDAO.showFilter(pageable,filterAuthor,filterSinger,filterCategory));
+//        req.getRequestDispatcher("/JSPhomeAdmin/admin.jsp").forward(req,resp);
+//    }
     public void deleteSong(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         songService.deleteSong(id);

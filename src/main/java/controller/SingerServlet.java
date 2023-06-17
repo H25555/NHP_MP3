@@ -40,7 +40,7 @@ public class SingerServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         Singer singers = singerService.findByID(id);
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("/editSinger.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPsinger/editSinger.jsp").forward(req,resp);
     }
     public void editSinger(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -49,12 +49,12 @@ public class SingerServlet extends HttpServlet {
         singerService.editSinger(singer);
         request.setAttribute("message","edit thành công");
         request.setAttribute("singer",singer);
-        request.getRequestDispatcher("/editSinger.jsp").forward(request,response);
+        request.getRequestDispatcher("/JSPsinger/editSinger.jsp").forward(request,response);
     }
     private void showCreateSinger(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Singer> singers = singerService.findAll();
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("/createSinger.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPsinger/createSinger.jsp").forward(req,resp);
     }
     public void createSinger(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -62,13 +62,13 @@ public class SingerServlet extends HttpServlet {
         singerService.createSinger(singer);
         request.setAttribute("message","create thành công");
         request.setAttribute("singer",singer);
-        request.getRequestDispatcher("/createSinger.jsp").forward(request,response);
+        request.getRequestDispatcher("/JSPsinger/createSinger.jsp").forward(request,response);
     }
 
     private void showSinger(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Singer> singers = singerService.findAll();
         req.setAttribute("singers",singers);
-        req.getRequestDispatcher("/singer.jsp").forward(req,resp);
+        req.getRequestDispatcher("/JSPsinger/singer.jsp").forward(req,resp);
     }
 
     @Override

@@ -9,31 +9,31 @@ public class Pageable {
         private String nameField;
 
         private String sortBy;
-    private String filterAuthor;
-    private String filterSinger;
-    private String filterCategory;
+    private int filterAuthor;
+    private int filterSinger;
+    private int filterCategory;
 
-    public String getFilterAuthor() {
+    public int getFilterAuthor() {
         return filterAuthor;
     }
 
-    public void setFilterAuthor(String filterAuthor) {
+    public void setFilterAuthor(int filterAuthor) {
         this.filterAuthor = filterAuthor;
     }
 
-    public String getFilterSinger() {
+    public int getFilterSinger() {
         return filterSinger;
     }
 
-    public void setFilterSinger(String filterSinger) {
+    public void setFilterSinger(int filterSinger) {
         this.filterSinger = filterSinger;
     }
 
-    public String getFilterCategory() {
+    public int getFilterCategory() {
         return filterCategory;
     }
 
-    public void setFilterCategory(String filterCategory) {
+    public void setFilterCategory(int filterCategory) {
         this.filterCategory = filterCategory;
     }
 
