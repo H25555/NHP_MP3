@@ -21,8 +21,8 @@ public class PlaylistDAO extends ConnectionDatabase {
     private final String FIND_USER_PLAYLIST = "SELECT *,user.id as user_id FROM playlist LEFT JOIN user ON playlist.id_user = user.id where playlist.id_user = ?;";
     private final String FIND_PLAYLIST_SONGS = "SELECT *,song.id FROM intermediary_song_playlist as isp LEFT JOIN song ON isp.id_song = song.id where isp.id_playlist = ?;";
     private final String CREATE_ISP = "INSERT INTO intermediary_song_playlist (`id_song`, `id_playlist`) VALUES (?, ?);";
-    private final String DELETE_ISP = "DELETE  FROM playlist WHERE (`id` = ?);";
-    private final String DELETE_PLAYLIST = "DELETE  FROM intermediary_song_playlist WHERE (`id` = ?);";
+    private final String DELETE_PLAYLIST = "DELETE  FROM playlist WHERE (`id` = ?);";
+    private final String DELETE_ISP = "DELETE  FROM intermediary_song_playlist WHERE (`id` = ?);";
 
     public void createPlaylist(Playlist playlist){
         try (Connection connection = getConnection();
@@ -84,7 +84,7 @@ public class PlaylistDAO extends ConnectionDatabase {
     }
     public void createISP(ISP isp){
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_ISP)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_ISP)) {
             preparedStatement.setInt(1, isp.getSong().getId());
             preparedStatement.setInt(2, isp.getPlaylist().getId());
             System.out.println(preparedStatement);
