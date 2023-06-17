@@ -39,13 +39,13 @@
                 <td>${song.category.name}</td>
                 <td>${song.singer.name}</td>
                 <td>
-<%--                    ${song.image}--%>
-                    <audio controls class="song-play" id="audio${status.index}">
+
+                    <audio controls class="song-play" onclick="console.log(${song.id})" id="audio${status.index}">
                         <source src="${song.song}" type="audio/mp3">
                     </audio>
                 </td>
                 <td >
-<%--                                            ${song.song}--%>
+
                     <img class="image" src="${song.image}">
                 </td>
 
