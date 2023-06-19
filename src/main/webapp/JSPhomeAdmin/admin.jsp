@@ -1,13 +1,13 @@
 <%@ include file="../header.jsp" %>
 <div class="container">
     <div class="container">
-        <form method="post" action="/songs">
+        <form method="get" action="/admin/songs">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="author">Author</label>
                     <select class="form-control" id="author" name="author">
                         <option value="">All Authors</option>
-                        <c:forEach items="${filterAuthor}" var="author">
+                        <c:forEach items="${authors}" var="author">
                             <option value="${author.id}">${author.name}</option>
                         </c:forEach>
                     </select>
@@ -16,7 +16,7 @@
                     <label for="singer">Singer</label>
                     <select class="form-control" id="singer" name="singer">
                         <option value="">All Singers</option>
-                        <c:forEach items="${filterSinger}" var="singer">
+                        <c:forEach items="${singers}" var="singer">
                             <option value="${singer.id}">${singer.name}</option>
                         </c:forEach>
                     </select>
@@ -25,7 +25,7 @@
                     <label for="category">Category</label>
                     <select class="form-control" id="category" name="category">
                         <option value="">All Categories</option>
-                        <c:forEach items="${filterCategory}" var="category">
+                        <c:forEach items="${categories}" var="category">
                             <option value="${category.id}">${category.name}</option>
                         </c:forEach>
                     </select>

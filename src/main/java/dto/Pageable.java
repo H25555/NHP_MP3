@@ -51,7 +51,18 @@ public class Pageable {
             this.sortBy = sortBy;
         }
 
-        public Pageable(String search, int page, int totalItems, int totalPage) {
+    public Pageable(String search, int page, int totalItems, String nameField, String sortBy, int filterAuthor, int filterSinger, int filterCategory) {
+        this.search = search;
+        this.page = page;
+        this.totalItems = totalItems;
+        this.nameField = nameField;
+        this.sortBy = sortBy;
+        this.filterAuthor = filterAuthor;
+        this.filterSinger = filterSinger;
+        this.filterCategory = filterCategory;
+    }
+
+    public Pageable(String search, int page, int totalItems, int totalPage) {
             this.search = search;
             this.page = page;
             this.totalItems = totalItems;

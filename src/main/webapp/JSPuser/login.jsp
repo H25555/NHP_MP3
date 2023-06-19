@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
 
     <link href="../css/login.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -24,6 +27,104 @@
 
         pbfooter {
             position: relative;
+        }
+        @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #00071C;
+        }
+        ul {
+            position: relative;
+            display: flex;
+            transform: rotate(-1deg) skew(25deg);
+            transform-style: preserve-3d;
+        }
+        ul li {
+            position: relative;
+            list-style: none;
+            width: 60px;
+            height: 60px;
+            margin: 0px 20px;
+        }
+        ul li:before{
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: -5px;
+            width: 100%;
+            height: 10px;
+            background: #2a2a2a;
+            trnasform-origin: top;
+            transform: skewX(-41deg);
+        }
+        ul li:after{
+            content: '';
+            position: absolute;
+            top:5px;
+            left: -9px;
+            width: 9px;
+            height: 100%;
+            background: #2a2a2a;
+            trnasform-origin: right;
+            transform: skewY(-49deg);
+        }
+        ul li span{
+            position: absolute;
+            top: 0;
+            lef: 0;
+            width: 100%;
+            height: 100%;
+            display: flex !important;
+            background: #2a2a2a;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 16px !important;
+            transition: 1.5s ease-out;
+        }
+        ul li:hover span {
+            z-index: 1000;
+            transition: .3s;
+            color: #fff;
+            box-shadw: -1px 1px 1px rgba(0, 0, 0, .5);
+        }
+        ul li:hover span:nth-child(5){
+            transform: translate(40px, -40px);
+            opacity: 1;
+        }
+        ul li:hover span:nth-child(4){
+            transform: translate(30px, -30px);
+            opacity: .8;
+        }
+        ul li:hover span:nth-child(3){
+            transform: translate(20px, -20px);
+            opacity: .6;
+        }
+        ul li:hover span:nth-child(2){
+            transform: translate(10px, -10px);
+            opacity: .4;
+        }ul li:hover span:nth-child(1){
+             transform: translate(0px, 0px);
+             opacity: .2;
+         }
+        ul li:nth-child(1):hover span{
+            background: #52E19F !important;
+        }
+        ul li:nth-child(2):hover span{
+            background: #2C3456 !important;
+        }
+        ul li:nth-child(3):hover span{
+            background: #EA6E96 !important;
+        }
+        ul li:nth-child(4):hover span{
+            background: #FCEB00 !important;
         }
     </style>
 
@@ -42,19 +143,7 @@
     <!-- Jquery Validate Script - Validation Fields -->
     <script type="text/javascript">
 
-<<<<<<< Updated upstream
-        // $.validator.setDefaults({
-        //     submitHandler: function () {
-        //         window.open('/home', '_self', false)
-        //     }
-        // });
-=======
-        $.validator.setDefaults({
-            submitHandler: function () {
-                window.open('index.jsp', '_self', false)
-            }
-        });
->>>>>>> Stashed changes
+
 
         $().ready(function () {
             // validate the comment form when it is submitted
@@ -142,55 +231,68 @@
 
 </style>
 
-<body style="background:url('https://vietadv.net/wp-content/uploads/2021/05/Nhac-nen-la-mot-loai-nhac-thuong-duoc-su-dung-trong-1-so-dia-diem-khac-nhau.jpg') no-repeat center center; height:700px;">
+<body style="background:url('https://i.pinimg.com/564x/c5/95/4c/c5954ce81bd89cd1170d5bf57b74cb5b.jpg') no-repeat fixed center ; height:700px;">
 
 <!-- NAVIGATION MENU -->
 
-<div class="navbar-nav navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/home"> NHP mp3</a>
-        </div>
-        <div class="navbar-collapse collapse">
-<%--            <ul class="nav navbar-nav">--%>
-<%--                <li class="active"><a href="/home"><i class="icon-home icon-white"></i> Home</a></li>--%>
-<%--&lt;%&ndash;                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>&ndash;%&gt;--%>
-<%--                <li><a href="/login"><i class="icon-user icon-white"></i> Login</a></li>--%>
+<%--<div class="navbar-nav navbar-inverse navbar-fixed-top">--%>
+<%--    <div class="container">--%>
+<%--        <div class="navbar-header">--%>
+<%--            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">--%>
+<%--                <span class="icon-bar"></span>--%>
+<%--                <span class="icon-bar"></span>--%>
+<%--                <span class="icon-bar"></span>--%>
+<%--            </button>--%>
+<%--            <a class="navbar-brand" href="/home"> NHP mp3</a>--%>
+<%--        </div>--%>
+<%--        <div class="navbar-collapse collapse">--%>
+<%--&lt;%&ndash;            <ul class="nav navbar-nav">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <li class="active"><a href="/home"><i class="icon-home icon-white"></i> Home</a></li>&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;                <li><a href="/admin/songs"><i class="icon-th icon-white"></i> Song Management</a></li>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;&lt;%&ndash;                <li><a href="/admin/users"><i class="icon-user icon-white"></i> User Management</a></li>&ndash;%&gt;&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <li><a href="/login"><i class="icon-user icon-white"></i> Login</a></li>&ndash;%&gt;--%>
 
-<%--            </ul>--%>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
+<%--&lt;%&ndash;            </ul>&ndash;%&gt;--%>
+<%--        </div><!--/.nav-collapse -->--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-offset-4 col-lg-4" style="margin-top:100px">
+            <h1 class="text-danger text-center" style="font-size: 46px;font-family: 'Tilt Prism', cursive; color: whitesmoke"><strong> WELLCOME TO NHP MP3 WEBSITE</strong></h1>
             <div class="block-unit" style="text-align:center; padding:8px 8px 8px 8px;">
-
-                <br>
-                <br>
                 <form class="cmxform" id="signupForm" method="post" action="/login">
+
                     <fieldset>
-                        <p>
-                            <input id="username" name="username" type="text" placeholder="Username">
-                            <input id="password" name="password" type="password" placeholder="Password">
+                        <h2 class="text-center text-primary" style="font-size: 40px; color: whitesmoke">Login</h2>
+                        <p style="margin-bottom: 40px">
+                            <input class="form-control-static" id="username" name="username" type="text" placeholder="Username">
+                            <input class="form-control-static" id="password" name="password" type="password" placeholder="Password">
                         </p>
 <%--                        <input class="submit btn-success btn btn-large" type="submit" value="Login">--%>
-                        <button class="submit btn-success btn btn-large">Login</button>
+                        <div class="row d-flex mr-3" style="margin-bottom: 20px">
+                            <div>
+                                <ul style="justify-content: center">
+                                    <li>
+                                    <button style="width: 100%;height: 100%; background: #2a2a2a" class="submit btn-success btn btn-large">login
+                                    </button>
+                                    </li>
+                                    <li>
+                                        <a href="/signup">
+                                            <button type="button" style="width: 100%;height: 100%; background: #2a2a2a" class="submit btn-success btn btn-large">signup
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
 
                     </fieldset>
 
                 </form>
-                <a href="/signup">
-                    <button class="submit btn-success btn btn-large">Signup</button>
-                </a>
+
 
             </div>
 

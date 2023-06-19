@@ -37,9 +37,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Objects;
 
 
 @MultipartConfig(
@@ -159,6 +159,7 @@ public class SongServlet extends HttpServlet {
         }
     }
 
+//copy file name từ máy đưa vô assets
     private void saveFileToServer(Part filePart, String filePath, String fileName) throws IOException, URISyntaxException {
         if (filePart != null && filePath != null) {
             String uploadDir = getServletContext().getRealPath("/assets/music");
@@ -169,7 +170,7 @@ public class SongServlet extends HttpServlet {
         }
     }
 
-
+// Lấy file name
     private String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         String[] elements = contentDisposition.split(";");
@@ -198,10 +199,26 @@ public class SongServlet extends HttpServlet {
         if(nameField == null){
             nameField = "song.id";
         }
-        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy);
+        int filterAuthor = 0;
+        if (req.getParameter("author") != null && !Objects.equals(req.getParameter("author"), "")) {
+            filterAuthor = Integer.parseInt(req.getParameter("author"));
+        }
 
-        List<Song> songs = songDAO.showFilter(pageable, 2, 2, 2);
+        int filterSinger = 0;
+        if (req.getParameter("singer") != null && !Objects.equals(req.getParameter("singer"), "")) {
+            filterSinger = Integer.parseInt(req.getParameter("singer"));
+        }
 
+        int filterCategory = 0;
+        if (req.getParameter("category") != null && !Objects.equals(req.getParameter("category"), "")) {
+            filterCategory = Integer.parseInt(req.getParameter("category"));
+        }
+        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy,filterAuthor,filterSinger,filterCategory);
+
+        List<Song> songs = songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
+        req.setAttribute("authors",authorService.findAll());
+        req.setAttribute("singers",singerService.findAll());
+        req.setAttribute("categories",categoryService.findAll());
         req.setAttribute("pageable", pageable);
         req.setAttribute("songs", songs);
         req.getRequestDispatcher("/JSPhomeAdmin/admin.jsp").forward(req,resp);
