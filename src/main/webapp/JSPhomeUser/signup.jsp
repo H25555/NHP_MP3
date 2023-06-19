@@ -27,8 +27,12 @@
                                 <label for="exampleInputPassword1">Mật khẩu</label>
                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
                             </div>
-                            <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
-                            <a href="/signup"><button type="button" class="btn oneMusic-btn mt-30" >Sign Up</button></a>
+                            <div class="form-group">
+                                <label for="exampleInputPassword2">Nhập lại mật khẩu</label>
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Re-Password" name="re_password">
+                            </div>
+                            <button type="submit" class="btn oneMusic-btn mt-30">Sign Up</button>
+                            <a href="/login"><button type="button" class="btn oneMusic-btn mt-30" >Login</button></a>
                         </form>
                     </div>
                 </div>

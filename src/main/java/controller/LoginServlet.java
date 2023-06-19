@@ -32,16 +32,20 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("likes", likes);
             session.setAttribute("role", user.getRole().getName());
             session.setAttribute("user",user);
+            if (user.getRole().getId() == 1){
+                resp.sendRedirect("/admin/songs");
+                return;
+            }
             resp.sendRedirect("/home");
             return;
         }
         req.setAttribute("errors", "Login Failed");
-        req.getRequestDispatcher("JSPuser/login.jsp")
+        req.getRequestDispatcher("JSPhomeUser/login.jsp")
                 .forward(req,resp);
     }
 
     private void showLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("JSPuser/login.jsp")
+        req.getRequestDispatcher("JSPhomeUser/login.jsp")
                 .forward(req,resp);
     }
 
@@ -49,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("JSPuser/login.jsp")
+        req.getRequestDispatcher("JSPhomeUser/login.jsp")
                 .forward(req,resp);
     }
 

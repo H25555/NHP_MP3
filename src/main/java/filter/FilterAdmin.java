@@ -28,7 +28,7 @@ public class FilterAdmin implements Filter {
         //chua co thi dieu huong ve login
         if (role == null || !role.equals("admin")) {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-            httpServletResponse.sendRedirect("/login");
+            httpServletResponse.sendRedirect("/home");
             return;
         }
         chain.doFilter(request, response);

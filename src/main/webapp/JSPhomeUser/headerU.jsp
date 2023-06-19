@@ -77,7 +77,7 @@
 
 </head>
 
-<body ">
+<body >
 <!-- Preloader -->
 <div class=" preloader d-flex align-items-center justify-content-center">
     <div class="lds-ellipsis">
@@ -163,11 +163,16 @@
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
+                                <c:if test="${sessionScope.user == null}">
                                 <div class="login-register-btn mr-50">
-                                    <a href="login.html" id="loginBtn">Login / Register</a>
+                                    <a href="/login" id="loginBtn">Login </a>
                                 </div>
-
-
+                                </c:if>
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="login-register-btn mr-50">
+                                        <a href="/home?action=logout" id="loginBtn2">Logout </a>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
                         <!-- Nav End -->
