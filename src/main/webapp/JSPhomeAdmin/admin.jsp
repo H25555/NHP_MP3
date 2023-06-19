@@ -10,8 +10,7 @@
                         <c:forEach items="${authors}" var="author">
                             <option value="${author.id}">${author.name}</option>
                         </c:forEach>
-                    </select>
-                </div>
+                    </select></div>
                 <div class="form-group col-md-4">
                     <label for="singer">Singer</label>
                     <select class="form-control" id="singer" name="singer">

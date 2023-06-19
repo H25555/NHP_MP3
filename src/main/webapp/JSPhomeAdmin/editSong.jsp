@@ -74,7 +74,9 @@
         a:hover {
             text-decoration: underline;
         }
-
+    .error-massage{
+        color: red;
+    }
     </style>
 
 </head>
@@ -82,64 +84,128 @@
 <c:if test="${requestScope['message'] != null}">
     <span>${message}</span>
 </c:if>
-
-
     <div class="container">
         <div class="overlay">
-            <form action="/admin/songs?action=edit&id=${song.id}" method="post">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" value="${song.name}" /><br>
-                <label for="author">Author</label>
-                <select name="author" id="author">
-                    <option value="">--None--</option>
+            <form id="form-edit-song" action="/admin/songs?action=edit&id=${song.id}" method="post">
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="${song.name}" /><br>
+                    <label class="error-massage" id="message-name"></label>
+                </div>
+                <div>
+                    <label for="author">Author</label>
+                    <select name="author" id="author">
+                        <option value="null">--None--</option>
 
-                    <c:forEach items="${authors}" var="author">
-                        <c:if test="${song.author.id == author.id}">
-                            <option selected value="${author.id}">${author.name}</option>
-                        </c:if>
-                        <c:if test="${song.author.id != author.id}">
-                            <option value="${author.id}">${author.name}</option>
-                        </c:if>
-                    </c:forEach>
-                </select><br>
-                <label for="category">Category</label>
-                <select name="category" id="category" >
-                    <option value="">--None--</option>
-                    <c:forEach items="${categorys}" var="category">
-                        <c:if test="${song.category.id == category.id}">
-                            <option selected value="${category.id}">${category.name}</option>
-                        </c:if>
-                        <c:if test="${song.category.id != category.id}">
-                            <option value="${category.id}">${category.name}</option>
-                        </c:if>
-                    </c:forEach>
-                    <%--        <c:forEach items="${categorys}" var="category">--%>
-                    <%--            <option value="${category.id}">${category.name}</option>--%>
-                    <%--        </c:forEach>--%>
-                </select><br>
-                <label for="singer">Category</label>
-                <select name="singer" id="singer">
-                    <option value="">--None--</option>
-                    <c:forEach items="${singers}" var="singer">
-                        <c:if test="${song.singer.id == singer.id}">
-                            <option selected value="${singer.id}">${singer.name}</option>
-                        </c:if>
-                        <c:if test="${song.singer.id != singer.id}">
-                            <option value="${singer.id}">${singer.name}</option>
-                        </c:if>
-                    </c:forEach>
-                    <%--        <c:forEach items="${singers}" var="singer">--%>
-                    <%--            <option value="${singer.id}">${singer.name}</option>--%>
-                    <%--        </c:forEach>--%>
-                </select><br>
-                <label for="song">Song</label>
-                <input type="text" name="song" id="song" value="${song.song}" /><br>
-                <label for="image">Ảnh</label>
-                <input type="text" name="image" id="image" value="${song.image}" /><br>
-                <button type="submit">Edit</button>
+                        <c:forEach items="${authors}" var="author">
+                            <c:if test="${song.author.id == author.id}">
+                                <option selected value="${author.id}">${author.name}</option>
+                            </c:if>
+                            <c:if test="${song.author.id != author.id}">
+                                <option value="${author.id}">${author.name}</option>
+                            </c:if>
+                        </c:forEach>
+                    </select><br>
+                    <label class="error-massage" id="message-author"></label>
+                </div>
+                <div>
+                    <label for="category">Category</label>
+                    <select name="category" id="category" >
+                        <option value="null">--None--</option>
+                        <c:forEach items="${categorys}" var="category">
+                            <c:if test="${song.category.id == category.id}">
+                                <option selected value="${category.id}">${category.name}</option>
+                            </c:if>
+                            <c:if test="${song.category.id != category.id}">
+                                <option value="${category.id}">${category.name}</option>
+                            </c:if>
+                        </c:forEach>
+                    </select><br>
+                    <label class="error-massage" id="message-category"></label>
+                </div>
+                <div>
+                    <label for="singer">Category</label>
+                    <select name="singer" id="singer">
+                        <option value="null">--None--</option>
+                        <c:forEach items="${singers}" var="singer">
+                            <c:if test="${song.singer.id == singer.id}">
+                                <option selected value="${singer.id}">${singer.name}</option>
+                            </c:if>
+                            <c:if test="${song.singer.id != singer.id}">
+                                <option value="${singer.id}">${singer.name}</option>
+                            </c:if>
+                        </c:forEach>
+                    </select><br>
+                    <label class="error-massage" id="message-singer"></label>
+                </div>
+                <div>
+                    <label for="song">Song</label>
+                    <input type="text" name="song" id="song" value="${song.song}" /><br>
+                    <label class="error-massage" id="message-song"></label>
+                </div>
+                <div>
+                    <label for="image">Ảnh</label>
+                        <input type="text" name="image" id="image" value="${song.image}" /><br>
+                        <label class="error-massage" id="message-image"></label>
+                </div>
+                <a href="#" onclick="submitForm()">Edit</a>
             </form>
             <a href="/admin/songs">Back</a>
         </div>
     </div>
 </body>
+<script>
+    function submitForm(){
+        if (validateFormEditSong()){
+            document.getElementById("form-edit-song").submit();
+        }
+    }
+    function validateString(inputString) {
+        var regex = /^[a-zA-Z0-9]*$/;
+        return regex.test(inputString);
+    }
+    function validateFormEditSong(){
+        const name = document.getElementById("name").value;
+        const author = document.getElementById("author").value;
+        const category = document.getElementById("category").value;
+        const singer = document.getElementById("singer").value;
+        const music = document.getElementById("song").value;
+        const image = document.getElementById("image").value;
+
+        var result = true;
+        if (!name || name.trim().length <= 0  ){
+            result = false;
+            document.getElementById("message-name").innerHTML = "Tên bài hát không được để trống"
+        }
+        if ( name.trim().length > 50 ){
+            result = false;
+            document.getElementById("message-name").innerHTML = "Tên bài hát không được quá 50 ký tự"
+        }
+        if (!validateString(name)){
+            result = false;
+            document.getElementById("message-name").innerHTML = "Tên bài hát không được có ký tực đặc biệt"
+        }
+        if (!author || author === "null"){
+            result = false;
+            document.getElementById("message-author").innerHTML = "Vui lòng chọn tên nhạc sĩ"
+        }
+        if (!category || category === "null"){
+            result = false
+            document.getElementById("message-category").innerHTML = "Vui lòng chọn thể loại"
+        }
+        if (!singer || singer === "null"){
+            result = false
+            document.getElementById("message-singer").innerHTML = "Vui lòng chọn tên ca sĩ"
+        }
+        if (!music || music.trim().length <= 0){
+            result = false
+            document.getElementById("message_music").innerHTML = "Vui lòng nhập bài hát"
+        }
+        if (!image || image <= 0){
+            result = false
+            document.getElementById("message-image").innerHTML = "Link ảnh không được để trống"
+        }
+        return result
+    }
+</script>
 </html>

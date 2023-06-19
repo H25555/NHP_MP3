@@ -39,7 +39,6 @@
                 <td>${song.category.name}</td>
                 <td>${song.singer.name}</td>
                 <td>
-
                     <audio controls class="song-play" onplay="getView(${song.id})" onpause="getDuration()" id="audio${status.index}">
                         <source src="${song.song}" type="audio/mp3">
                     </audio>
