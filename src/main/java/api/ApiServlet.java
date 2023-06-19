@@ -39,12 +39,14 @@ public class ApiServlet extends HttpServlet {
         int songid = Integer.parseInt(req.getParameter("id"));
         Song song = songService.findByID(songid);
         User user = (User) req.getSession().getAttribute("user");
-        System.out.println(user.getId());
-        Like like = new Like(user,song);
-        if (likeDAO.checkLiked(user.getId(),songid)){
-            likeDAO.dislike(user.getId());
-        }else {
-            likeDAO.createLike(like);
+        int iduser = user.getId();
+        Like like = likeDAO.findLike(iduser,songid);
+        if (like == null){
+            likeDAO.createLike(new Like(user,song,1));
+        } else if (like.getStatus() == 1){
+            likeDAO.unlike(like);
+        } else {
+            likeDAO.like(like);
         }
 
     }

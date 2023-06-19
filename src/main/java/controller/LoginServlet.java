@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+import java.util.List;
 
 
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
@@ -27,7 +27,9 @@ public class LoginServlet extends HttpServlet {
         User user = userService.findByUsername(username);
 
         if(user != null && PasswordEncoder.check(password, user.getPassword())){
+            List<Like> likes = likeDAO.findUserLike(user.getId());
             HttpSession session = req.getSession();
+            session.setAttribute("likes", likes);
             session.setAttribute("role", user.getRole().getName());
             session.setAttribute("user",user);
             resp.sendRedirect("/home");

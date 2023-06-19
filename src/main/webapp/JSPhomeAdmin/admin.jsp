@@ -132,7 +132,23 @@
                         <img style="height: 40px;width: 40px;border-radius: 50%" class="image" src="${song.image}">
                     </td>
                     <td>
-                        <button onclick="like(${song.id})"><i class="fa-solid fa-heart"></i></button>
+                        <c:forEach items="${sessionScope.likes}" var="like">
+                            <% boolean check = false; %>
+                            <c:if test="${song.id == like.song.id && like.status == 1}">
+                                <button id="buttonLike" onclick="like(${song.id})">Dislike</button>
+<%--                                <%  check = true; %>--%>
+                            </c:if>
+                            <c:if test="${song.id == like.song.id && like.status != 1}">
+                                <button id="buttonLike" onclick="like(${song.id})">Like</button>
+                            </c:if>
+
+                        </c:forEach>
+<%--                        <c:if test="${check}" >--%>
+<%--                            <button onclick="like(${song.id})">Dislike</button>--%>
+<%--                        </c:if>--%>
+<%--                        <c:if test="${!check}">--%>
+<%--                            <button onclick="like(${song.id})">Like12321</button>--%>
+<%--                        </c:if>--%>
                     </td>
                     <td style="align-content: center; align-items: center"><a href="songs?action=edit&id=${song.id}">
                         <button type="button" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></button>
@@ -179,6 +195,13 @@
     }
     function like(idsong){
         fetch('http://localhost:8080/api?action=like&id=' + idsong)
+        let statusCurrent = document.getElementById('buttonLike');
+        console.log(statusCurrent.innerHTML)
+        if(statusCurrent.innerHTML == 'Like') {
+            statusCurrent.innerHTML = 'Dislike';
+        } else {
+            statusCurrent.innerHTML = 'Like'
+        }
     }
 </script>
 <%@ include file="../footer.jsp" %>
