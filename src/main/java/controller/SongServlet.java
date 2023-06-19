@@ -133,20 +133,26 @@ public class SongServlet extends HttpServlet {
         Category category = categoryService.findByID(IDCategory);
         int IDSinger = Integer.parseInt(request.getParameter("singer"));
         Singer singer = singerService.findByID(IDSinger);
-        String image = request.getParameter("image");
 
 
         String UPLOAD_DIR = "assets/music";
+        String UPLOAD_IMG = "assets/image";
 
-        Part filePart = request.getPart("filePart");
-        String fileName = getFileName(filePart);
+        Part filePart1 = request.getPart("filePart1");
+        Part filePart2 = request.getPart("filePart2");
+        String fileName1 = getFileName(filePart1);
+        String fileName2 = getFileName(filePart2);
 
-        if (filePart != null && fileName != null && !fileName.isEmpty()) {
-            fileName = fileName.replace("\"", "");
-            String filePath = UPLOAD_DIR + "/" + fileName;
+        if ((filePart1 != null && fileName1 != null && !fileName1.isEmpty())
+                && (filePart2 != null && fileName2 != null && !fileName2.isEmpty())) {
+            fileName1 = fileName1.replace("\"", "");
+            fileName2 = fileName2.replace("\"", "");
+            String filePath1 = UPLOAD_DIR + "/" + fileName1;
+            String filePath2 = UPLOAD_IMG + "/" + fileName2;
 
-            saveFileToServer(filePart, filePath, fileName);
-            Song song = new Song(name, author, category, singer, filePath, image);
+            saveFileToServer(filePart1, filePath1, fileName1);
+            saveFileImgToServer(filePart2,filePath2,fileName2);
+            Song song = new Song(name, author, category, singer, filePath1, filePath2);
             songDAO.saveSongToDatabase(song);
             request.setAttribute("message", "create thành công");
             request.setAttribute("song", song);
@@ -163,6 +169,15 @@ public class SongServlet extends HttpServlet {
     private void saveFileToServer(Part filePart, String filePath, String fileName) throws IOException, URISyntaxException {
         if (filePart != null && filePath != null) {
             String uploadDir = getServletContext().getRealPath("/assets/music");
+            Path p = Paths.get(uploadDir + File.separator + fileName);
+            Path destination = Paths.get(filePath);
+            InputStream inputStream = filePart.getInputStream();
+            Files.copy(inputStream,  p, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+    private void saveFileImgToServer(Part filePart, String filePath, String fileName) throws IOException, URISyntaxException {
+        if (filePart != null && filePath != null) {
+            String uploadDir = getServletContext().getRealPath("/assets/image");
             Path p = Paths.get(uploadDir + File.separator + fileName);
             Path destination = Paths.get(filePath);
             InputStream inputStream = filePart.getInputStream();

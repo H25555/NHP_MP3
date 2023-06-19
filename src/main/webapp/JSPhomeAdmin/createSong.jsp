@@ -124,12 +124,12 @@
                 </c:forEach>
             </select>
             <label for="musicFile">Music File:</label>
-            <input type="file" id="musicFile" name="filePart"><br><br>
-            <label for="image">Image</label>
-            <input type="text" name="image" id="image" value="${song.image}"/>
+            <input type="file" id="musicFile" name="filePart1"><br><br>
+            <label for="imageFile">Image File</label>
+            <input type="file" id="imageFile" name="filePart2"><br><br>
             <button type="submit">Create</button>
         </form>
-        <a href="/songs">Back</a>
+        <a href="admin/songs">Back</a>
     </div>
 </div>
 

@@ -1,5 +1,9 @@
 package controller;
 
+import service.AuthorService;
+import service.CategoryService;
+import service.SingerService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +14,16 @@ import java.io.IOException;
 
 @WebServlet(name = "homeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
+    AuthorService authorService = new AuthorService();
+    SingerService singerService = new SingerService();
+    CategoryService categoryService = new CategoryService();
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/index.jsp").forward(req,resp);
+        req.setAttribute("authors", authorService.findAll());
+        req.setAttribute("singers", singerService.findAll());
+        req.setAttribute("categories", categoryService.findAll());
+        req.getRequestDispatcher("/JSPhomeUser/home.jsp").forward(req,resp);
+
     }
 
     @Override
@@ -38,6 +49,6 @@ public class HomeServlet extends HttpServlet {
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         session.invalidate();
-        resp.sendRedirect("home");
+        resp.sendRedirect("/home");
     }
 }
