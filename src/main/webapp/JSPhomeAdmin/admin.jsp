@@ -132,17 +132,22 @@
                         <img style="height: 40px;width: 40px;border-radius: 50%" class="image" src="${song.image}">
                     </td>
                     <td>
+                        <c:set var="check" value="false"></c:set>
                         <c:forEach items="${sessionScope.likes}" var="like">
-                            <% boolean check = false; %>
+
                             <c:if test="${song.id == like.song.id && like.status == 1}">
                                 <button id="buttonLike" onclick="like(${song.id})">Dislike</button>
-<%--                                <%  check = true; %>--%>
+                                <c:set var="check" value="true"></c:set>
                             </c:if>
                             <c:if test="${song.id == like.song.id && like.status != 1}">
                                 <button id="buttonLike" onclick="like(${song.id})">Like</button>
+                                <c:set var="check" value="true"></c:set>
                             </c:if>
-
                         </c:forEach>
+                        <c:if test="${check== false}">
+                            <button id="buttonLike" onclick="like(${song.id})">Like</button>
+                        </c:if>
+
 <%--                        <c:if test="${check}" >--%>
 <%--                            <button onclick="like(${song.id})">Dislike</button>--%>
 <%--                        </c:if>--%>
