@@ -5,6 +5,9 @@ import model.Author;
 import model.Category;
 import model.Singer;
 import model.Song;
+import service.AuthorService;
+import service.CategoryService;
+import service.SingerService;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -14,6 +17,9 @@ import java.util.List;
 
 
 public class SongDAO extends ConnectionDatabase {
+    AuthorService authorService = new AuthorService();
+    SingerService singerService = new SingerService();
+    CategoryService categoryService = new CategoryService();
     private String SELECT_ALL_SONG_WITH_FILTER = "SELECT s.*, a.`name` as name_author , c.`name` as type, sg.`name` as name_singer  FROM song s \n" +
             "LEFT JOIN author a ON s.id_author = a.id\n" +
             "LEFT JOIN category c ON s.id_category = c.id\n" +
@@ -46,7 +52,11 @@ public class SongDAO extends ConnectionDatabase {
             "OR lower(author.`name`) LIKE ? " +
             "OR  lower(category.`name`) LIKE ? " +
             "OR  lower(singer.`name`) LIKE ? ";
-
+    private final String SHOW_LEADERBOARD = " SELECT song.*, count(*) AS views_count\n" +
+            "    FROM song\n" +
+            "    LEFT JOIN `history` h ON song.id = h.id_song\n" +
+            "    GROUP BY song.id\n" +
+            "    ORDER BY views_count DESC;";
 
     public List<Song> showFilter(Pageable pageable, int filterAuthor, int filterSinger, int filterCategory) {
         List<FieldFilter> fieldFilters = new ArrayList<>();
@@ -284,5 +294,34 @@ public class SongDAO extends ConnectionDatabase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public List<Song> showLeaderboard(){
+        List<Song> songs = new ArrayList<>();
+        try (Connection connection = getConnection();
+
+             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(SHOW_LEADERBOARD);) {
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int idAuthor = rs.getInt("id_author");
+                int idCategory = rs.getInt("id_category");
+                int idSinger = rs.getInt("id_singer");
+                String linkImg = rs.getString("link_image");
+                String linkSong = rs.getString("link_song");
+                Author author = authorService.findByID(idAuthor);
+                Category category = categoryService.findByID(idCategory);
+                Singer singer = singerService.findByID(idSinger);
+                songs.add(new Song(id,name,author,category,singer,linkSong,linkImg));
+            }
+            return songs;
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }

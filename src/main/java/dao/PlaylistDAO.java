@@ -1,8 +1,6 @@
 package dao;
 
-import model.ISP;
-import model.Playlist;
-import model.Song;
+import model.*;
 import service.AuthorService;
 import service.CategoryService;
 import service.SingerService;
@@ -18,11 +16,12 @@ public class PlaylistDAO extends ConnectionDatabase {
     SingerService singerService = new SingerService();
     CategoryService categoryService = new CategoryService();
     static String CREATE_PLAYLIST = "INSERT INTO `playlist` (`name`, `id_user`) VALUES (?, ?);";
-    private final String FIND_USER_PLAYLIST = "SELECT *,user.id as user_id FROM playlist LEFT JOIN user ON playlist.id_user = user.id where playlist.id_user = ?;";
+    private final String FIND_USER_PLAYLIST = "SELECT * FROM playlist  where playlist.id_user = ?;";
     private final String FIND_PLAYLIST_SONGS = "SELECT *,song.id FROM intermediary_song_playlist as isp LEFT JOIN song ON isp.id_song = song.id where isp.id_playlist = ?;";
     private final String CREATE_ISP = "INSERT INTO intermediary_song_playlist (`id_song`, `id_playlist`) VALUES (?, ?);";
     private final String DELETE_PLAYLIST = "DELETE  FROM playlist WHERE (`id` = ?);";
     private final String DELETE_ISP = "DELETE  FROM intermediary_song_playlist WHERE (`id` = ?);";
+    private final String SELECT_PLAYLIST_BY_ID = "SELECT * FROM playlist WHERE id = ?";
 
     public void createPlaylist(Playlist playlist){
         try (Connection connection = getConnection();
@@ -112,5 +111,24 @@ public class PlaylistDAO extends ConnectionDatabase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public Playlist findById(int id){
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(SELECT_PLAYLIST_BY_ID);) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int idPlaylist = rs.getInt("id");
+                String name = rs.getString("name");
+                int iduser = rs.getInt("id_user");
+                User user = userService.findById(iduser);
+                return new Playlist(idPlaylist,name,user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package controller;
 import service.AuthorService;
 import service.CategoryService;
 import service.SingerService;
+import service.SongService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,11 +18,13 @@ public class HomeServlet extends HttpServlet {
     AuthorService authorService = new AuthorService();
     SingerService singerService = new SingerService();
     CategoryService categoryService = new CategoryService();
+    SongService songService = new SongService();
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.setAttribute("authors", authorService.findAll());
         req.setAttribute("singers", singerService.findAll());
         req.setAttribute("categories", categoryService.findAll());
+        req.setAttribute("leaderboard", songService.showLeaderboard());
         req.getRequestDispatcher("/JSPhomeUser/home.jsp").forward(req,resp);
 
     }

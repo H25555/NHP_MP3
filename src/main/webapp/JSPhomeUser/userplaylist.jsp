@@ -164,9 +164,9 @@
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
                                 <c:if test="${sessionScope.user == null}">
-                                <div class="login-register-btn mr-50">
-                                    <a href="/login" id="loginBtn">Login </a>
-                                </div>
+                                    <div class="login-register-btn mr-50">
+                                        <a href="/login" id="loginBtn">Login </a>
+                                    </div>
                                 </c:if>
                                 <c:if test="${sessionScope.user != null}">
                                     <div class="login-register-btn mr-50">
@@ -183,3 +183,52 @@
         </div>
     </div>
 </header>
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <p>Your Library</p>
+        <h2>Playlist Name</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Blog Area Start ##### -->
+<div class="blog-area section-padding-100">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12 col-lg-9">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <c:if test="${songs.size() > 0}">
+                        <c:forEach items="${songs}" var="song">
+                            <div class="single-album-area wow fadeInUp" data-wow-delay="400ms">
+                                <div class="album-thumb">
+                                    <img src="https://png.pngtree.com/template/20220609/ourmid/pngtree-music-vinyl-background-record-vector-image_1826055.jpg"
+                                         alt="">
+                                    <div class="play-icon">
+                                        <a class="video--play--btn"><span class="icon-play-button"></span></a>
+                                    </div>
+                                </div>
+                                <div class="album-info">
+                                    <a href="#">
+                                        <h5>${song.name}</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+
+                    <c:if test="${songs.size() == 0 || songs == null}">
+                        <p>ADD SONG</p>
+                    </c:if>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-lg-3">
+
+            </div>
+        </div>
+    </div>
+</div>
+<%@ include file="footerU.jsp" %>

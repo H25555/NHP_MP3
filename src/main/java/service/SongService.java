@@ -27,4 +27,7 @@ public class SongService {
     public void deleteSong(int id){
         songDAO.deleteBook(id);
     }
+    public List<Song> showLeaderboard(){
+        return songDAO.showLeaderboard();
+    }
 }

@@ -27,4 +27,7 @@ public class PlaylistService {
     public void deleteISP(int id){
         playlistDAO.deleteISP(id);
     }
+    public Playlist findById(int id){
+        return playlistDAO.findById(id);
+    }
 }

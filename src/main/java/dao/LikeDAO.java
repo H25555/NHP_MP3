@@ -21,6 +21,7 @@ public class LikeDAO extends ConnectionDatabase{
 //    private final String CHECK_LIKED = "SELECT * FROM nhp_mp3.like where id_user = ? and id_song = ?;";
     private final String FIND_LIKE = "SELECT * FROM `like` where id_user = ? and id_song = ?;";
     private final String SELECT_LIKE_BY_USERID = "SELECT * FROM `like` WHERE id_user = ?";
+
     public int countSongLike(int idsong){
         int likes = 0;
         try (Connection connection = getConnection();
@@ -116,4 +117,5 @@ public class LikeDAO extends ConnectionDatabase{
         }
         return likes;
     }
+
 }
