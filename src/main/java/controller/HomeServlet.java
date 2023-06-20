@@ -1,5 +1,7 @@
 package controller;
 
+import dto.Pageable;
+import model.Song;
 import service.AuthorService;
 import service.CategoryService;
 import service.SingerService;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "homeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
@@ -19,8 +23,11 @@ public class HomeServlet extends HttpServlet {
     SingerService singerService = new SingerService();
     CategoryService categoryService = new CategoryService();
     SongService songService = new SongService();
+
+    private int TOTAL_ITEMS = 10;
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
         req.setAttribute("authors", authorService.findAll());
         req.setAttribute("singers", singerService.findAll());
         req.setAttribute("categories", categoryService.findAll());
@@ -28,6 +35,7 @@ public class HomeServlet extends HttpServlet {
         req.getRequestDispatcher("/JSPhomeUser/home.jsp").forward(req,resp);
 
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,3 +1,30 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+.song-play-area > .audioplayer-time,
+.song-play-area > .audioplayer-playpause,
+.song-play-area > .audioplayer-time
+.song-play-area > .audioplayer-volume{
+    display: none;
+}
+
+.song-play-area{
+
+    width: 100% !important;
+}
+#musicSingle{
+    display: none;
+    width: 100%;
+}
+.audioplayer-playpause.active {
+    color: #867878;
+}
+
+
+
+</style>
 <%@ include file="headerU.jsp" %>
 <!-- ##### Breadcumb Area Start ##### -->
 <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
@@ -11,286 +38,209 @@
 <!-- ##### Album Catagory Area Start ##### -->
 <section class="album-catagory section-padding-100-0">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
-                    <a href="#" data-filter="*">Browse All</a>
-                    <a href="#" data-filter=".a" class="active">A</a>
-                    <a href="#" data-filter=".b">B</a>
-                    <a href="#" data-filter=".c">C</a>
-                    <a href="#" data-filter=".d">D</a>
-                    <a href="#" data-filter=".e">E</a>
-                    <a href="#" data-filter=".f">F</a>
-                    <a href="#" data-filter=".g">G</a>
-                    <a href="#" data-filter=".h">H</a>
-                    <a href="#" data-filter=".i">I</a>
-                    <a href="#" data-filter=".j">J</a>
-                    <a href="#" data-filter=".k">K</a>
-                    <a href="#" data-filter=".l">L</a>
-                    <a href="#" data-filter=".m">M</a>
-                    <a href="#" data-filter=".n">N</a>
-                    <a href="#" data-filter=".o">O</a>
-                    <a href="#" data-filter=".p">P</a>
-                    <a href="#" data-filter=".q">Q</a>
-                    <a href="#" data-filter=".r">R</a>
-                    <a href="#" data-filter=".s">S</a>
-                    <a href="#" data-filter=".t">T</a>
-                    <a href="#" data-filter=".u">U</a>
-                    <a href="#" data-filter=".v">V</a>
-                    <a href="#" data-filter=".w">W</a>
-                    <a href="#" data-filter=".x">X</a>
-                    <a href="#" data-filter=".y">Y</a>
-                    <a href="#" data-filter=".z">Z</a>
-                    <a href="#" data-filter=".number">0-9</a>
-                </div>
-            </div>
-        </div>
-
         <div class="row oneMusic-albums">
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p">
-                <div class="single-album">
-                    <img src="img/bg-img/a1.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>The Cure</h5>
-                        </a>
-                        <p>Second Song</p>
+            <c:forEach items="${songs}" var="song">
+                <div style="height: 300px" class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p">
+                    <div style="height: 280px" class="single-album">
+                        <img style="height: 60%" src="${song.image}" alt="">
+                        <div class="album-info">
+                            <a href="javascript:void(0);" onclick="playSong(${song.id})">
+                                <h5>${song.name}</h5>
+                            </a>
+                            <p>${song.singer.name}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item s e q">
-                <div class="single-album">
-                    <img src="img/bg-img/a2.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Sam Smith</h5>
-                        </a>
-                        <p>Underground</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item w f r">
-                <div class="single-album">
-                    <img src="img/bg-img/a3.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Will I am</h5>
-                        </a>
-                        <p>First</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t g u">
-                <div class="single-album">
-                    <img src="img/bg-img/a4.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>The Cure</h5>
-                        </a>
-                        <p>Second Song</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item d h v">
-                <div class="single-album">
-                    <img src="img/bg-img/a5.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>DJ SMITH</h5>
-                        </a>
-                        <p>The Album</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t i x">
-                <div class="single-album">
-                    <img src="img/bg-img/a6.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>The Ustopable</h5>
-                        </a>
-                        <p>Unplugged</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item b j y">
-                <div class="single-album">
-                    <img src="img/bg-img/a7.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Beyonce</h5>
-                        </a>
-                        <p>Songs</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item a k z">
-                <div class="single-album">
-                    <img src="img/bg-img/a8.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Aam Smith</h5>
-                        </a>
-                        <p>Underground</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item w l number">
-                <div class="single-album">
-                    <img src="img/bg-img/a9.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Will I am</h5>
-                        </a>
-                        <p>First</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item d m">
-                <div class="single-album">
-                    <img src="img/bg-img/a10.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>DJ SMITH</h5>
-                        </a>
-                        <p>The Album</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t n">
-                <div class="single-album">
-                    <img src="img/bg-img/a11.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>The Ustopable</h5>
-                        </a>
-                        <p>Unplugged</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item b o">
-                <div class="single-album">
-                    <img src="img/bg-img/a12.jpg" alt="">
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Beyonce</h5>
-                        </a>
-                        <p>Songs</p>
-                    </div>
-                </div>
-            </div>
-
+            </c:forEach>
         </div>
     </div>
+    <ul>
+        <div style="text-align: center">
+            <c:forEach begin="1" end="${pageable.totalPage}" var="page">
+        <span>
+        <a href="/list_songs?page=${page}&search=${pageable.search}&sortBy=${pageable.sortBy}&nameField=${pageable.nameField}"><button>${page}</button></a>
+        </span>
+            </c:forEach>
+        </div>
+
+    </ul>
 </section>
-<!-- ##### Album Catagory Area End ##### -->
 
-<!-- ##### Buy Now Area Start ##### -->
-<div class="oneMusic-buy-now-area mb-100">
-    <div class="container">
-        <div class="row">
 
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="img/bg-img/b1.jpg" alt="">
-                        <!-- Album Price -->
-                        <div class="album-price">
-                            <p>$0.90</p>
-                        </div>
-                        <!-- Play Icon -->
-                        <div class="play-icon">
-                            <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
-                        </div>
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Garage Band</h5>
-                        </a>
-                        <p>Radio Station</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="img/bg-img/b2.jpg" alt="">
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Noises</h5>
-                        </a>
-                        <p>Buble Gum</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="img/bg-img/b3.jpg" alt="">
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Jess Parker</h5>
-                        </a>
-                        <p>The Album</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="img/bg-img/b4.jpg" alt="">
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Noises</h5>
-                        </a>
-                        <p>Buble Gum</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row" >
+            <!-- Single Song Area -->
             <div class="col-12">
-                <div class="load-more-btn text-center">
-                    <a href="#" class="btn oneMusic-btn">Load More <i class="fa fa-angle-double-right"></i></a>
-                </div>
+
+                    <div class="song-play-area" id="musicSingle">
+
+                    </div>
+
             </div>
         </div>
     </div>
-</div>
+
+
+<%--<div class="one-music-songs-area mb-70">--%>
+<%--    <div class="container">--%>
+<%--        <div class="row" >--%>
+<%--            <!-- Single Song Area -->--%>
+<%--            <div class="col-12">--%>
+<%--                <div class="single-song-area mb-30 d-flex align-items-end">--%>
+<%--                    <div class="song-play-area" id="musicSingle">--%>
+
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<%--<section id="audioContainer" class="single-song-area">--%>
+
+<%--    <div class="container">--%>
+<%--        <div class="row">--%>
+<%--            <div class="col-12">--%>
+<%--                <div class="container-audio">--%>
+<%--                    <audio controls  loop autoplay id="audioPlayer1">--%>
+<%--                    </audio>--%>
+<%--                </div>--%>
+<%--                <div class="player-controls">--%>
+<%--                    <div class="player-progress">--%>
+<%--                        <input type="range" id="progressSlider" min="0" max="100" step="0.1">--%>
+<%--                    </div>--%>
+<%--                    <div class="player-buttons">--%>
+<%--                        <button id="volumeUpButton">&#x1f50a;</button>--%>
+<%--                        <button id="prevButton">&lt;</button>--%>
+<%--                        <button id="playPauseButton">&#9658;</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</section>--%>
+
+<script>
+
+    window.addEventListener('scroll', scrolled);
+    function scrolled(event){
+        var audioContainer = document.getElementById('musicSingle');
+        var footer = document.getElementById("footer");
+        var footerY = footer.scrollHeight ;
+        var scrollY = window.scrollY;
+        if(scrollY>=500){
+            audioContainer.style.marginBottom = '120px';
+        } else {
+            audioContainer.style.marginBottom = '0px';
+
+        }
+
+
+    }
+
+    // Lấy các phần tử cần sử dụng
+
+    var progressBar = document.getElementById('progressBar');
+    var playPauseButton = document.getElementById('playPauseButton');
+    var prevButton = document.getElementById('prevButton');
+    var nextButton = document.getElementById('nextButton');
+    var randomButton = document.getElementById('randomButton');
+    <% String products = (String) request.getAttribute("songsJSON"); %>
+    let songs = <%= products %>;
+    var songSelected;
+    function playSong(id) {
+
+
+        songSelected = songs.find(e => e.id === id);
+        playAudio();
+        showAudioPlayer();
+    }
+    function playAudio(){
+        musicSingle.innerHTML = '';
+        let str = `<div class="song-name" >
+                            <p id="nameSong">\${songSelected.name}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" onclick="prev()" class="audioplayer-playpause">
+                                <i class="fas fa-backward"></i>
+                            </button>
+                            <button type="button" onclick="next()" class="audioplayer-playpause">
+                                <i class="fas fa-forward"></i>
+                            </button>
+
+                            <audio style="width: 80%;" id="audioPlayer1" preload="auto" controls>
+                                <source id="srcSong" src="\${songSelected.song}">
+                            </audio>
+                            <button type="button" onclick="toggleRandom()" class="audioplayer-playpause">
+                                <i class="fas fa-random"></i>
+                            </button>
+
+                        </div>`;
+        musicSingle.innerHTML = str;
+        var audioPlayer = document.getElementById('audioPlayer1');
+        audioPlayer.play();
+    }
+
+    function next() {
+        if (isRandom) {
+            const randomIndex = Math.floor(Math.random() * songs.length);
+            songSelected = songs[randomIndex];
+        } else {
+            for (let i = 0; i < songs.length; i++) {
+                if (songs[i].id === songSelected.id) {
+                    songSelected = songs[(i + 1) % songs.length];
+                    break;
+                }
+            }
+        }
+        playAudio();
+    }
+
+    function prev() {
+        if (isRandom) {
+            const randomIndex = Math.floor(Math.random() * songs.length);
+            songSelected = songs[randomIndex];
+        } else {
+            for (let i = 0; i < songs.length; i++) {
+                if (songs[i].id === songSelected.id) {
+                    songSelected = songs[(i - 1 + songs.length) % songs.length];
+                    break;
+                }
+            }
+        }
+        playAudio();
+    }
+    let isRandom = false;
+
+
+    function toggleRandom() {
+        isRandom = !isRandom;
+        var button = document.querySelector('.audioplayer-playpause');
+        button.classList.toggle('active');
+    }
+
+
+    function showAudioPlayer() {
+        var audioContainer = document.getElementById('musicSingle');
+        audioContainer.style.display = 'block';
+        audioContainer.style.position = 'fixed';
+        audioContainer.style.bottom = '0';
+        audioContainer.style.left = '0';
+        audioContainer.style.width = '100%';
+        audioContainer.style.zIndex = '100';
+
+        var footer = document.getElementById("footer");
+        var footerY = footer.scrollHeight ;
+        var scrollY = window.scrollY;
+        if(scrollY>=500){
+            audioContainer.style.marginBottom = '130px';
+        }
+
+    }
+
+
+</script>
+
 <%@ include file="footerU.jsp" %>
+
+
+

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 
-@WebServlet(name = "playlistServlet", urlPatterns = "/playlist")
+@WebServlet(name = "playlistServlet", urlPatterns = "/playlists")
 public class PlaylistServlet extends HttpServlet {
     PlaylistService playlistService = new PlaylistService();
      @Override

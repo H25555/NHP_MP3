@@ -17,9 +17,14 @@
     <link rel="icon" href="img/core-img/favicon.ico">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        function onClearSearch() {
+            searchButton.click();
+        }
+    </script>
     <style>
         .single-album-area {
             position: relative;
@@ -107,14 +112,14 @@
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
                     </div>
                     <div>
-                        <input type="search"
-                               style="border-radius: 20px; width: 200px;height: 40px; background-color: whitesmoke;border: none; outline: none;"
-                               placeholder="   Tìm kiếm bài hát ...">
-                        <button
-                                style="border: none;border-radius: 50%; background-color: rgb(121, 116, 116);height: 40px;"
-                                type="submit" class="btn btn-primary">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <form action="/list_songs" method="get" style="padding-right: 4%; display: flex">
+                        <div style="display: flex">
+                            <input style=" height: 40px;width: 300px;border-radius: 20px" type="search"
+                                   name="search" id="search" value="${pageable.search}" onsearch="onClearSearch()"/>
+                            <button style="border-radius: 50%;width: 40px; height: 40px" id="searchButton" class="btn btn-primary" type="submit"><i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        </form>
                     </div>
 
                     <!-- Menu -->
@@ -129,28 +134,29 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="/home">Trang chủ</a></li>
-                                <li><a href="songs.jsp">Bài hát</a></li>
-                                <li><a href="/playlist">Playlist</a></li>
+                     <li><a href="/list_songs">Bài hát</a></li>
+                                <li><a href="/playlists">Playlist</a></li>
+
                                 <li><a href="#">Chọn lọc</a>
                                     <ul class="dropdown">
-                                        <li><a href="author.jsp">Tác giả</a>
+                                        <li><a >Tác giả</a>
                                             <ul class="dropdown">
                                                 <c:forEach items="${authors}" var="author">
-                                                    <li><a href="#">${author.name}</a></li>
+                                                    <li><a href="/list_songs?author=${author.id}">${author.name}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </li>
-                                        <li><a href="singer.jsp">Ca sĩ</a>
+                                        <li><a>Ca sĩ</a>
                                             <ul class="dropdown">
                                                 <c:forEach items="${singers}" var="singer">
-                                                    <li><a href="#">${singer.name}</a></li>
+                                                    <li><a href="/list_songs?singer=${singer.id}">${singer.name}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </li>
-                                        <li><a href="category.jsp">Thể loại</a>
+                                        <li><a> Thể loại</a>
                                             <ul class="dropdown">
                                                 <c:forEach items="${categories}" var="category">
-                                                    <li><a href="#">${category.name}</a></li>
+                                                    <li><a href="/list_songs?category=${category.id}">${category.name}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </li>

@@ -1,7 +1,8 @@
 
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- phần foot -->
-<footer class="footer-area">
+<footer id="footer" class="footer-area">
     <div class="container">
         <div class="row d-flex flex-wrap align-items-center">
             <div class="col-12 col-md-6">
@@ -41,15 +42,15 @@
     </div>
 </footer>
 
-<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<script src="../js/jquery/jquery-2.2.4.min.js"></script>
 <!-- Popper js -->
-<script src="js/bootstrap/popper.min.js"></script>
+<script src="../js/bootstrap/popper.min.js"></script>
 <!-- Bootstrap js -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
 <!-- All Plugins js -->
-<script src="js/plugins/plugins.js"></script>
+<script src="../js/plugins/plugins.js"></script>
 <!-- Active js -->
-<script src="js/active.js"></script>
+<script src="../js/active.js"></script>
 
 </body>
 

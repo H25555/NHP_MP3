@@ -70,7 +70,9 @@
             background-color: inherit; /* Kế thừa màu nền từ phần tử cha */
             text-decoration: none; /* Bỏ gạch chân của liên kết */
         }
-
+        .audioplayer {
+            display: none;
+        }
     </style>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
