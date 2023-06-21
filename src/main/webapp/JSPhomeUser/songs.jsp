@@ -49,6 +49,11 @@
                                 <h5>${song.name}</h5>
                             </a>
                             <p>${song.singer.name}</p>
+                            <c:forEach items="${histories}" var="his">
+                                <c:if test="${his.song.id == song.id}">
+                                    <p>Lượt xem: ${his.view}</p>
+                                </c:if>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

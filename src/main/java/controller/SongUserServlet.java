@@ -8,14 +8,11 @@ import dao.SongDAO;
 import dao.UploadDAO;
 import dto.Pageable;
 import model.*;
-import service.SongService;
+import service.*;
 
 import javax.servlet.RequestDispatcher;
 
 import model.Song;
-import service.AuthorService;
-import service.CategoryService;
-import service.SingerService;
 import service.SongService;
 
 import javax.servlet.ServletContext;
@@ -51,6 +48,7 @@ public class SongUserServlet extends HttpServlet {
     private int TOTAL_ITEMS = 12;
     SongService songService = new SongService();
     AuthorService authorService = new AuthorService();
+    HistoryService historyService = new HistoryService();
     CategoryService categoryService = new CategoryService();
     SingerService singerService = new SingerService();
     SongDAO songDAO = new SongDAO();
@@ -101,6 +99,7 @@ public class SongUserServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         List<Like> likes = likeDAO.findUserLike(user.getId());
+        List<History> histories = historyService.findAll();
         List<Song> songs = songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
         req.setAttribute("likes",likes);
         req.setAttribute("authors",authorService.findAll());
@@ -108,7 +107,10 @@ public class SongUserServlet extends HttpServlet {
         req.setAttribute("categories",categoryService.findAll());
         req.setAttribute("pageable", pageable);
         req.setAttribute("songs", songs);
-        req.setAttribute("songsJSON", convertListToJson(songService.findAll(pageable)));
+
+        req.setAttribute("histories", histories);
+        req.setAttribute("songsJSON",convertListToJson(songService.findAll(pageable)));
+
         req.getRequestDispatcher("/JSPhomeUser/songs.jsp").forward(req,resp);
 
 

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.Pageable;
 import model.Song;
-import service.AuthorService;
-import service.CategoryService;
-import service.SingerService;
-import service.SongService;
+import service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,14 +19,20 @@ import java.util.Objects;
 @WebServlet(name = "homeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
     AuthorService authorService = new AuthorService();
+    UserService userService = new UserService();
     SingerService singerService = new SingerService();
     CategoryService categoryService = new CategoryService();
     SongService songService = new SongService();
+
 
     private int TOTAL_ITEMS = 10;
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Pageable pageable = new Pageable();
+        HttpSession session = req.getSession();
+        if(session.getAttribute("user") == null){
+            session.setAttribute("user",userService.findByUsername("guest@gmail.com"));
+        }
         req.setAttribute("authors", authorService.findAll());
         req.setAttribute("singers", singerService.findAll());
         req.setAttribute("categories", categoryService.findAll());

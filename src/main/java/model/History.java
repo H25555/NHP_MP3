@@ -5,6 +5,16 @@ public class History {
     private User user;
     private Song song;
 
+    private int view;
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
     public History(int id, User user, Song song) {
         this.id = id;
         this.user = user;

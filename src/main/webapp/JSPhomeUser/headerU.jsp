@@ -169,12 +169,14 @@
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
-                                <c:if test="${sessionScope.user == null}">
+                                <c:set var="user1" value="${sessionScope.user.username}"/>
+                                <c:set var="user2" value="guest@gmail.com"/>
+                                <c:if test="${user1 eq user2}">
                                 <div class="login-register-btn mr-50">
                                     <a href="/login" id="loginBtn">Login </a>
                                 </div>
                                 </c:if>
-                                <c:if test="${sessionScope.user != null}">
+                                <c:if test="${user1 ne user2}">
                                     <div class="login-register-btn mr-50">
                                         <a href="/home?action=logout" id="loginBtn2">Logout </a>
                                     </div>

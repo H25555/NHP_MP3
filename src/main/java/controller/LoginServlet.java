@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
         if(user != null && PasswordEncoder.check(password, user.getPassword())){
             List<Like> likes = likeDAO.findUserLike(user.getId());
             HttpSession session = req.getSession();
+
             session.setAttribute("likes", likes);
             session.setAttribute("role", user.getRole().getName());
             session.setAttribute("user",user);
@@ -53,6 +54,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+
+        session.invalidate();
         req.getRequestDispatcher("JSPhomeUser/login.jsp")
                 .forward(req,resp);
     }
