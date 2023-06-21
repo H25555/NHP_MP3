@@ -85,7 +85,7 @@
 
 <div class="container">
     <div class="overlay">
-        <form id="form-create-song" action="/admin/songs?action=create" method="post" enctype="multipart/form-data">
+        <form id="form-create-song" action="admin/songs?action=create" method="post" enctype="multipart/form-data">
             <div>
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" value="${song.name}"/>
@@ -148,7 +148,7 @@
             </div>
             <a href="#" onclick="submitForm()">Create</a>
         </form>
-        <a href="/admin/songs">Back</a>
+        <a href="admin/songs">Back</a>
     </div>
 </div>
 </body>

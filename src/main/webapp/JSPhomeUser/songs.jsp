@@ -3,24 +3,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-.song-play-area > .audioplayer-time,
-.song-play-area > .audioplayer-playpause,
-.song-play-area > .audioplayer-time
-.song-play-area > .audioplayer-volume{
-    display: none;
-}
+    .song-play-area > .audioplayer-time,
+    .song-play-area > .audioplayer-playpause,
+    .song-play-area > .audioplayer-time
+    .song-play-area > .audioplayer-volume{
+        display: none;
+    }
 
-.song-play-area{
+    .song-play-area{
 
-    width: 100% !important;
-}
-#musicSingle{
-    display: none;
-    width: 100%;
-}
-.audioplayer-playpause.active {
-    color: #867878;
-}
+        width: 100% !important;
+    }
+    #musicSingle{
+        display: none;
+        width: 100%;
+    }
+    .audioplayer-playpause.active {
+        color: #867878;
+    }
 
 
 
@@ -36,6 +36,7 @@
 <!-- ##### Breadcumb Area End ##### -->
 
 <!-- ##### Album Catagory Area Start ##### -->
+<c:if test="${requestScope['song'].size() != 0}">
 <section class="album-catagory section-padding-100-0">
     <div class="container">
         <div class="row oneMusic-albums">
@@ -58,77 +59,39 @@
         <div style="text-align: center">
             <c:forEach begin="1" end="${pageable.totalPage}" var="page">
         <span>
-        <a href="/list_songs?page=${page}&search=${pageable.search}&sortBy=${pageable.sortBy}&nameField=${pageable.nameField}"><button>${page}</button></a>
+        <a href="/list_songs?page=${page}&search=${pageable.search}&nameField=${pageable.nameField}"><button>${page}</button></a>
         </span>
             </c:forEach>
         </div>
 
     </ul>
 </section>
+</c:if>
 
+<div class="container-fluid">
+    <div class="row" >
+        <!-- Single Song Area -->
+        <div class="col-12">
 
-    <div class="container-fluid">
-        <div class="row" >
-            <!-- Single Song Area -->
-            <div class="col-12">
-
-                    <div class="song-play-area" id="musicSingle">
-
-                    </div>
+            <div class="song-play-area" id="musicSingle">
 
             </div>
+
         </div>
     </div>
+</div>
 
-
-<%--<div class="one-music-songs-area mb-70">--%>
-<%--    <div class="container">--%>
-<%--        <div class="row" >--%>
-<%--            <!-- Single Song Area -->--%>
-<%--            <div class="col-12">--%>
-<%--                <div class="single-song-area mb-30 d-flex align-items-end">--%>
-<%--                    <div class="song-play-area" id="musicSingle">--%>
-
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<section id="audioContainer" class="single-song-area">--%>
-
-<%--    <div class="container">--%>
-<%--        <div class="row">--%>
-<%--            <div class="col-12">--%>
-<%--                <div class="container-audio">--%>
-<%--                    <audio controls  loop autoplay id="audioPlayer1">--%>
-<%--                    </audio>--%>
-<%--                </div>--%>
-<%--                <div class="player-controls">--%>
-<%--                    <div class="player-progress">--%>
-<%--                        <input type="range" id="progressSlider" min="0" max="100" step="0.1">--%>
-<%--                    </div>--%>
-<%--                    <div class="player-buttons">--%>
-<%--                        <button id="volumeUpButton">&#x1f50a;</button>--%>
-<%--                        <button id="prevButton">&lt;</button>--%>
-<%--                        <button id="playPauseButton">&#9658;</button>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</section>--%>
 
 <script>
 
     window.addEventListener('scroll', scrolled);
     function scrolled(event){
         var audioContainer = document.getElementById('musicSingle');
-        var footer = document.getElementById("footer");
-        var footerY = footer.scrollHeight ;
+        // var footer = document.getElementById("footer");
+        // var footerY = footer.scrollHeight ;
         var scrollY = window.scrollY;
         if(scrollY>=500){
-            audioContainer.style.marginBottom = '120px';
+            audioContainer.style.marginBottom = '0px';
         } else {
             audioContainer.style.marginBottom = '0px';
 
@@ -140,10 +103,7 @@
     // Lấy các phần tử cần sử dụng
 
     var progressBar = document.getElementById('progressBar');
-    var playPauseButton = document.getElementById('playPauseButton');
-    var prevButton = document.getElementById('prevButton');
-    var nextButton = document.getElementById('nextButton');
-    var randomButton = document.getElementById('randomButton');
+
     <% String products = (String) request.getAttribute("songsJSON"); %>
     let songs = <%= products %>;
     var songSelected;
@@ -173,7 +133,6 @@
                             <button type="button" onclick="toggleRandom()" class="audioplayer-playpause">
                                 <i class="fas fa-random"></i>
                             </button>
-
                         </div>`;
         musicSingle.innerHTML = str;
         var audioPlayer = document.getElementById('audioPlayer1');
@@ -232,8 +191,8 @@
         var footerY = footer.scrollHeight ;
         var scrollY = window.scrollY;
         if(scrollY>=500){
-            audioContainer.style.marginBottom = '130px';
-        }
+            audioContainer.style.marginBottom = '0px';
+       }
 
 
     }

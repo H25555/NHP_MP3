@@ -208,7 +208,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="load-more-btn text-center wow fadeInUp" data-wow-delay="300ms">
-                    <a href="songs.jsp" class="btn oneMusic-btn">Khám phá <i class="fa fa-angle-double-right"></i></a>
+                    <a href="list_songs" class="btn oneMusic-btn">Khám phá <i class="fa fa-angle-double-right"></i></a>
                 </div>
             </div>
         </div>

@@ -139,15 +139,25 @@
                     <label class="error-massage" id="message-singer"></label>
                 </div>
                 <div>
-                    <label for="song">Song</label>
-                    <input type="text" name="song" id="song" value="${song.song}" /><br>
-                    <label class="error-massage" id="message-song"></label>
+                    <label for="musicFile">Music File:</label>
+                    <input type="file" id="musicFile" name="filePart"><br><br>
+                    <label class="error-massage" id="message_music"></label>
                 </div>
                 <div>
-                    <label for="image">Ảnh</label>
-                        <input type="text" name="image" id="image" value="${song.image}" /><br>
-                        <label class="error-massage" id="message-image"></label>
+                    <label for="image">Image</label>
+                    <input type="text" name="image" id="image" value="${song.image}"/>
+                    <label class="error-massage" id="message-image"></label>
                 </div>
+<%--                <div>--%>
+<%--                    <label for="song">Song</label>--%>
+<%--                    <input type="text" name="song" id="song" value="${song.song}" /><br>--%>
+<%--                    <label class="error-massage" id="message-song"></label>--%>
+<%--                </div>--%>
+<%--                <div>--%>
+<%--                    <label for="image">Ảnh</label>--%>
+<%--                        <input type="text" name="image" id="image" value="${song.image}" /><br>--%>
+<%--                        <label class="error-massage" id="message-image"></label>--%>
+<%--                </div>--%>
                 <a href="#" onclick="submitForm()">Edit</a>
             </form>
             <a href="/admin/songs">Back</a>

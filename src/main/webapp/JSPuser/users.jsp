@@ -1,4 +1,4 @@
-<%@ include file="../header.jsp" %>
+<%@ include file="../JSPhomeAdmin/header.jsp" %>
 <style>
     .containerr {
         display: flex;
@@ -108,4 +108,4 @@
 </c:if>
 </div>
 </div>
-<%@ include file="../footer.jsp" %>
+<%@ include file="../JSPhomeAdmin/footer.jsp" %>

@@ -33,7 +33,7 @@
 <%--<a href="/admin/songs">Back</a>--%>
 <%--</body>--%>
 <%--</html>--%>
-<%@ include file="../header.jsp" %>
+<%@ include file="../JSPhomeAdmin/header.jsp" %>
 <div class="container">
   <div class="container">
     <form method="get" action="/admin/songs">
@@ -103,4 +103,4 @@
     fetch('http://localhost:8080/api?action=like&id=' + idsong)
   }
 </script>
-<%@ include file="../footer.jsp" %>
+<%@ include file="../JSPhomeAdmin/footer.jsp" %>

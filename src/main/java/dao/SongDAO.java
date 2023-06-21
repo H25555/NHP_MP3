@@ -63,10 +63,10 @@ public class SongDAO extends ConnectionDatabase {
         if(filterAuthor != 0){
             fieldFilters.add(new FieldFilter("a", filterAuthor));
         }
-        if(filterCategory != 0){
+        if(filterSinger != 0){
             fieldFilters.add(new FieldFilter("sg", filterSinger));
         }
-        if(filterSinger != 0){
+        if(filterCategory != 0){
             fieldFilters.add(new FieldFilter("c", filterCategory));
         }
 
@@ -92,6 +92,7 @@ public class SongDAO extends ConnectionDatabase {
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = getConnection().prepareStatement(select);
+            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");

@@ -48,7 +48,7 @@ import java.util.Objects;
 
 
 public class SongUserServlet extends HttpServlet {
-    private int TOTAL_ITEMS = 18;
+    private int TOTAL_ITEMS = 12;
     SongService songService = new SongService();
     AuthorService authorService = new AuthorService();
     CategoryService categoryService = new CategoryService();
@@ -74,10 +74,10 @@ public class SongUserServlet extends HttpServlet {
         if(req.getParameter("page") != null){
             page = Integer.parseInt(req.getParameter("page"));
         }
-        String sortBy = req.getParameter("sortBy");
-        if(sortBy == null){
-            sortBy = "asc";
-        }
+//        String sortBy = req.getParameter("sortBy");
+//        if(sortBy == null){
+//            sortBy = "asc";
+//        }
         String nameField = req.getParameter("nameField");
         if(nameField == null){
             nameField = "song.id";
@@ -96,7 +96,8 @@ public class SongUserServlet extends HttpServlet {
         if (req.getParameter("category") != null && !Objects.equals(req.getParameter("category"), "")) {
             filterCategory = Integer.parseInt(req.getParameter("category"));
         }
-        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy,filterAuthor,filterSinger,filterCategory);
+
+        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,filterAuthor,filterSinger,filterCategory);
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         List<Like> likes = likeDAO.findUserLike(user.getId());
@@ -107,7 +108,7 @@ public class SongUserServlet extends HttpServlet {
         req.setAttribute("categories",categoryService.findAll());
         req.setAttribute("pageable", pageable);
         req.setAttribute("songs", songs);
-        req.setAttribute("songsJSON",convertListToJson(songService.findAll(pageable)));
+        req.setAttribute("songsJSON", convertListToJson(songService.findAll(pageable)));
         req.getRequestDispatcher("/JSPhomeUser/songs.jsp").forward(req,resp);
 
 
