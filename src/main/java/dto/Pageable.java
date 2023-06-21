@@ -62,6 +62,9 @@ public class Pageable {
         this.filterCategory = filterCategory;
     }
 
+    public Pageable() {
+    }
+
     public Pageable(String search, int page, int totalItems, int totalPage) {
             this.search = search;
             this.page = page;

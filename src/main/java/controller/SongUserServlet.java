@@ -3,17 +3,15 @@ package controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.LikeDAO;
 import dao.SongDAO;
 import dao.UploadDAO;
 import dto.Pageable;
-import model.Song;
+import model.*;
 import service.SongService;
 
 import javax.servlet.RequestDispatcher;
 
-import model.Author;
-import model.Category;
-import model.Singer;
 import model.Song;
 import service.AuthorService;
 import service.CategoryService;
@@ -24,10 +22,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +54,7 @@ public class SongUserServlet extends HttpServlet {
     CategoryService categoryService = new CategoryService();
     SingerService singerService = new SingerService();
     SongDAO songDAO = new SongDAO();
-
+    LikeDAO likeDAO = new LikeDAO();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -102,13 +97,17 @@ public class SongUserServlet extends HttpServlet {
             filterCategory = Integer.parseInt(req.getParameter("category"));
         }
         Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy,filterAuthor,filterSinger,filterCategory);
-
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Like> likes = likeDAO.findUserLike(user.getId());
         List<Song> songs = songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
+        req.setAttribute("likes",likes);
         req.setAttribute("authors",authorService.findAll());
         req.setAttribute("singers",singerService.findAll());
         req.setAttribute("categories",categoryService.findAll());
         req.setAttribute("pageable", pageable);
         req.setAttribute("songs", songs);
+        req.setAttribute("songsJSON",convertListToJson(songService.findAll(pageable)));
         req.getRequestDispatcher("/JSPhomeUser/songs.jsp").forward(req,resp);
 
 

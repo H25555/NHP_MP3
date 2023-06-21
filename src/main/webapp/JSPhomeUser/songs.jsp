@@ -167,7 +167,7 @@
                                 <i class="fas fa-forward"></i>
                             </button>
 
-                            <audio style="width: 80%;" id="audioPlayer1" preload="auto" controls>
+                            <audio style="width: 80%;" id="audioPlayer1" preload="auto" controls onplaying="getView(\${songSelected.id})" onpause="getDuration()">
                                 <source id="srcSong" src="\${songSelected.song}">
                             </audio>
                             <button type="button" onclick="toggleRandom()" class="audioplayer-playpause">
@@ -235,9 +235,25 @@
             audioContainer.style.marginBottom = '130px';
         }
 
+
     }
-
-
+    var countSecond;
+    var startDate;
+    var pauseDate = 0;
+    var timeOut;
+    // ?action=view&+
+    function getView(idsong){
+        startDate = new Date();
+        timeOut = setTimeout(() => {
+            fetch('http://localhost:8080/api?action=view&id=' + idsong)
+            pauseDate =0;
+        }, (60 - pauseDate) * 1000)
+    }
+    function getDuration(){
+        clearTimeout(timeOut);
+        let diff = (new Date() - startDate);
+        pauseDate = Math.floor((diff / 1000));
+    }
 </script>
 
 <%@ include file="footerU.jsp" %>

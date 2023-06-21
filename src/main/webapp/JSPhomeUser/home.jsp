@@ -180,18 +180,22 @@
                              alt="">
 
                         <div class="play-icon">
-                            <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
+                            <a href="javascript:void(0);" onclick="playSong(${item.id})" class="video--play--btn"><span class="icon-play-button"></span></a>
                         </div>
                     </div>
                     <div class="album-info">
                         <div class="album-title">
+                            <a href="javascript:void(0);" onclick="playSong(${item.id})">
                             <h5>${item.name}</h5>
+                            </a>
                         </div>
                         <div class="artist-name">
                             <p>${item.singer.name}</p>
                         </div>
                         <div class="album-actions">
-                            <button class="heart-btn"><span class="icon-heart"></span></button>
+                                <button class="heart-btn" onclick="like(${item.id})"><span class="icon-heart" ></span></button>
+
+
                             <button class="heart-btn"><span class="icon-plus"><i class="icon-plus-sign"></i></span></button>
                         </div>
                     </div>
@@ -210,6 +214,154 @@
         </div>
     </div>
 </section>
+<div class="container-fluid">
+    <div class="row" >
+        <!-- Single Song Area -->
+        <div class="col-12">
+
+            <div class="song-play-area" id="musicSingle">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    window.addEventListener('scroll', scrolled);
+    function scrolled(event){
+        var audioContainer = document.getElementById('musicSingle');
+        var footer = document.getElementById("footer");
+        var footerY = footer.scrollHeight ;
+        var scrollY = window.scrollY;
+        if(scrollY>=500){
+            audioContainer.style.marginBottom = '0px';
+        } else {
+            audioContainer.style.marginBottom = '0px';
+
+        }
+
+
+    }
+
+    // Lấy các phần tử cần sử dụng
+
+    var progressBar = document.getElementById('progressBar');
+    var playPauseButton = document.getElementById('playPauseButton');
+    var prevButton = document.getElementById('prevButton');
+    var nextButton = document.getElementById('nextButton');
+    var randomButton = document.getElementById('randomButton');
+    <% String products = (String) request.getAttribute("songsJSON"); %>
+    let songs = <%= products %>;
+    var songSelected;
+    function playSong(id) {
+
+
+        songSelected = songs.find(e => e.id === id);
+        playAudio();
+        showAudioPlayer();
+    }
+    function playAudio(){
+        musicSingle.innerHTML = '';
+        let str = `<div class="song-name" >
+                            <p id="nameSong">\${songSelected.name}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" onclick="prev()" class="audioplayer-playpause">
+                                <i class="fas fa-backward"></i>
+                            </button>
+                            <button type="button" onclick="next()" class="audioplayer-playpause">
+                                <i class="fas fa-forward"></i>
+                            </button>
+
+                            <audio style="width: 80%;" id="audioPlayer1" preload="auto" controls onplaying="getView(\${songSelected.id})" onpause="getDuration()">
+                                <source id="srcSong" src="\${songSelected.song}">
+                            </audio>
+                            <button type="button" onclick="toggleRandom()" class="audioplayer-playpause">
+                                <i class="fas fa-random"></i>
+                            </button>
+
+                        </div>`;
+        musicSingle.innerHTML = str;
+        var audioPlayer = document.getElementById('audioPlayer1');
+        audioPlayer.play();
+    }
+
+    function next() {
+        if (isRandom) {
+            const randomIndex = Math.floor(Math.random() * songs.length);
+            songSelected = songs[randomIndex];
+        } else {
+            for (let i = 0; i < songs.length; i++) {
+                if (songs[i].id === songSelected.id) {
+                    songSelected = songs[(i + 1) % songs.length];
+                    break;
+                }
+            }
+        }
+        playAudio();
+    }
+
+    function prev() {
+        if (isRandom) {
+            const randomIndex = Math.floor(Math.random() * songs.length);
+            songSelected = songs[randomIndex];
+        } else {
+            for (let i = 0; i < songs.length; i++) {
+                if (songs[i].id === songSelected.id) {
+                    songSelected = songs[(i - 1 + songs.length) % songs.length];
+                    break;
+                }
+            }
+        }
+        playAudio();
+    }
+    let isRandom = false;
+
+
+    function toggleRandom() {
+        isRandom = !isRandom;
+        var button = document.querySelector('.audioplayer-playpause');
+        button.classList.toggle('active');
+    }
+
+
+    function showAudioPlayer() {
+        var audioContainer = document.getElementById('musicSingle');
+        audioContainer.style.display = 'block';
+        audioContainer.style.position = 'fixed';
+        audioContainer.style.bottom = '0';
+        audioContainer.style.left = '0';
+        audioContainer.style.width = '100%';
+        audioContainer.style.zIndex = '100';
+
+        var footer = document.getElementById("footer");
+        var footerY = footer.scrollHeight ;
+        var scrollY = window.scrollY;
+        if(scrollY>=500){
+            audioContainer.style.marginBottom = '0px';
+        }
+
+
+    }
+    var countSecond;
+    var startDate;
+    var pauseDate = 0;
+    var timeOut;
+    // ?action=view&+
+    function getView(idsong){
+        startDate = new Date();
+        timeOut = setTimeout(() => {
+            fetch('http://localhost:8080/api?action=view&id=' + idsong)
+            pauseDate =0;
+        }, (60 - pauseDate) * 1000)
+    }
+    function getDuration(){
+        clearTimeout(timeOut);
+        let diff = (new Date() - startDate);
+        pauseDate = Math.floor((diff / 1000));
+    }
+</script>
 
 
 <%@ include file="footerU.jsp" %>

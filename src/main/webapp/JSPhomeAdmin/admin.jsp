@@ -132,22 +132,22 @@
                             <%--                                            ${song.song}--%>
                         <img style="height: 40px;width: 40px;border-radius: 50%" class="image" src="${song.image}">
                     </td>
-                    <td>
-                        <c:set var="check" value="false"></c:set>
-                        <c:forEach items="${sessionScope.likes}" var="like">
+<%--                    <td>--%>
+<%--                        <c:set var="check" value="false"></c:set>--%>
+<%--                        <c:forEach items="${sessionScope.likes}" var="like">--%>
 
-                            <c:if test="${song.id == like.song.id && like.status == 1}">
-                                <button id="buttonLike" onclick="like(${song.id})">Dislike</button>
-                                <c:set var="check" value="true"></c:set>
-                            </c:if>
-                            <c:if test="${song.id == like.song.id && like.status != 1}">
-                                <button id="buttonLike" onclick="like(${song.id})">Like</button>
-                                <c:set var="check" value="true"></c:set>
-                            </c:if>
-                        </c:forEach>
-                        <c:if test="${check== false}">
-                            <button id="buttonLike" onclick="like(${song.id})">Like</button>
-                        </c:if>
+<%--                            <c:if test="${song.id == like.song.id && like.status == 1}">--%>
+<%--                                <button id="buttonLike" onclick="like(${song.id})">Dislike</button>--%>
+<%--                                <c:set var="check" value="true"></c:set>--%>
+<%--                            </c:if>--%>
+<%--                            <c:if test="${song.id == like.song.id && like.status != 1}">--%>
+<%--                                <button id="buttonLike" onclick="like(${song.id})">Like</button>--%>
+<%--                                <c:set var="check" value="true"></c:set>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                        <c:if test="${check== false}">--%>
+<%--                            <button id="buttonLike" onclick="like(${song.id})">Like</button>--%>
+<%--                        </c:if>--%>
 
 <%--                        <c:if test="${check}" >--%>
 <%--                            <button onclick="like(${song.id})">Dislike</button>--%>
@@ -155,7 +155,7 @@
 <%--                        <c:if test="${!check}">--%>
 <%--                            <button onclick="like(${song.id})">Like12321</button>--%>
 <%--                        </c:if>--%>
-                    </td>
+<%--                    </td>--%>
                     <td style="align-content: center; align-items: center"><a href="songs?action=edit&id=${song.id}">
                         <button type="button" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></button>
                     </a></td>

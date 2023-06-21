@@ -56,7 +56,7 @@ public class SongDAO extends ConnectionDatabase {
             "    FROM song\n" +
             "    LEFT JOIN `history` h ON song.id = h.id_song\n" +
             "    GROUP BY song.id\n" +
-            "    ORDER BY views_count DESC;";
+            "    ORDER BY views_count DESC LIMIT 12;";
 
     public List<Song> showFilter(Pageable pageable, int filterAuthor, int filterSinger, int filterCategory) {
         List<FieldFilter> fieldFilters = new ArrayList<>();
@@ -324,4 +324,5 @@ public class SongDAO extends ConnectionDatabase {
 
         return null;
     }
+
 }

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HistoryDAO extends ConnectionDatabase{
-    private final String FIND_SONG_HISTORY ="SELECT count(*) FROM history where id_song = ?;";
+    private final String FIND_SONG_HISTORY ="SELECT count(*) FROM history where id_song = ? ;";
     private final String CREATE_HISTORY = "INSERT INTO history (`id_user`, `id_song`) VALUES (?, ?);";
 //    private final String DELETE_HISTORY = "DELETE  FROM history WHERE (`id` = ?);";
     public int countSongHistory(int idsong){
