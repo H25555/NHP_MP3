@@ -87,7 +87,7 @@ public class SongDAO extends ConnectionDatabase {
                 }
             }
         }
-        System.out.println(select);
+//        System.out.println(select);
         List<Song> songs = new ArrayList<>();
         try {
             Connection connection = getConnection();

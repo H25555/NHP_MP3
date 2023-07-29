@@ -169,14 +169,14 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" >
 
             <!-- Single Album Area --><c:forEach items="${leaderboard}" var="item">
             <div class="col-12 col-sm-6 col-md-4 col-lg-2">
 
                 <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
                     <div class="album-thumb">
-                        <img src="${item.image}"
+                        <img style="height: 200px" src="${item.image}"
                              alt="">
 
                         <div class="play-icon">
@@ -191,13 +191,18 @@
                         </div>
                         <div class="artist-name">
                             <p>${item.singer.name}</p>
+                            <c:forEach items="${histories}" var="his">
+                                <c:if test="${his.song.id == item.id}">
+                                    <p>Lượt xem: ${his.view}</p>
+                                </c:if>
+                            </c:forEach>
                         </div>
-                        <div class="album-actions">
-                                <button class="heart-btn" onclick="like(${item.id})"><span class="icon-heart" ></span></button>
+<%--                        <div class="album-actions">--%>
+<%--                                <button class="heart-btn" onclick="like(${item.id})"><span class="icon-heart" ></span></button>--%>
 
 
-                            <button class="heart-btn"><span class="icon-plus"><i class="icon-plus-sign"></i></span></button>
-                        </div>
+<%--                            <button class="heart-btn"><span class="icon-plus"><i class="icon-plus-sign"></i></span></button>--%>
+<%--                        </div>--%>
                     </div>
                 </div>
             </div>

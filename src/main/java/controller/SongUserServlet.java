@@ -45,7 +45,7 @@ import java.util.Objects;
 
 
 public class SongUserServlet extends HttpServlet {
-    private int TOTAL_ITEMS = 12;
+    private int TOTAL_ITEMS = 18;
     SongService songService = new SongService();
     AuthorService authorService = new AuthorService();
     HistoryService historyService = new HistoryService();
@@ -72,10 +72,10 @@ public class SongUserServlet extends HttpServlet {
         if(req.getParameter("page") != null){
             page = Integer.parseInt(req.getParameter("page"));
         }
-//        String sortBy = req.getParameter("sortBy");
-//        if(sortBy == null){
-//            sortBy = "asc";
-//        }
+        String sortBy = req.getParameter("sortBy");
+        if(sortBy == null){
+            sortBy = "asc";
+        }
         String nameField = req.getParameter("nameField");
         if(nameField == null){
             nameField = "song.id";
@@ -95,13 +95,19 @@ public class SongUserServlet extends HttpServlet {
             filterCategory = Integer.parseInt(req.getParameter("category"));
         }
 
-        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,filterAuthor,filterSinger,filterCategory);
+        Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy,filterAuthor,filterSinger,filterCategory);
+        List<Song> songs = new ArrayList<>();
+        if (search == null){
+            songs=  songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
+        }else {
+            songs = songService.findAll(pageable);
+        }
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        List<Like> likes = likeDAO.findUserLike(user.getId());
+//        List<Like> likes = likeDAO.findUserLike(user.getId());
         List<History> histories = historyService.findAll();
-        List<Song> songs = songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
-        req.setAttribute("likes",likes);
+
+//        req.setAttribute("likes",likes);
         req.setAttribute("authors",authorService.findAll());
         req.setAttribute("singers",singerService.findAll());
         req.setAttribute("categories",categoryService.findAll());

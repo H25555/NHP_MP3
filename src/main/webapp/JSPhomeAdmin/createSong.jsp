@@ -85,7 +85,7 @@
 
 <div class="container">
     <div class="overlay">
-        <form id="form-create-song" action="admin/songs?action=create" method="post" enctype="multipart/form-data">
+        <form id="form-create-song" action="/admin/songs?action=create" method="post" enctype="multipart/form-data">
             <div>
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" value="${song.name}"/>
@@ -138,17 +138,17 @@
             </div>
             <div>
                 <label for="musicFile">Music File:</label>
-                <input type="file" id="musicFile" name="filePart"><br><br>
+                <input type="file" id="musicFile" name="filePart1"><br><br>
                 <label class="error-massage" id="message_music"></label>
             </div>
             <div>
                 <label for="image">Image</label>
-                <input type="text" name="image" id="image" value="${song.image}"/>
+                <input type="file" name="filePart2" id="image" />
                 <label class="error-massage" id="message-image"></label>
             </div>
             <a href="#" onclick="submitForm()">Create</a>
         </form>
-        <a href="admin/songs">Back</a>
+        <a href="../admin/songs">Back</a>
     </div>
 </div>
 </body>
@@ -156,10 +156,11 @@
     function submitForm(){
         if (ValidateFormCreateSong()){
             document.getElementById("form-create-song").submit();
+            alert("Thêm mới thành công")
         }
     }
     function validateString(inputString) {
-        var regex = /^[a-zA-Z0-9]*$/;
+        var regex = /[^\x00-\x7f]+/g;
         return regex.test(inputString);
     }
     function ValidateFormCreateSong(){

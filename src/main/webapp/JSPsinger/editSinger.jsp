@@ -97,7 +97,7 @@
             </div>
             <a href="#" onclick="submitForm()">Create</a>
         </form>
-        <a href="/admin/singers">Back</a>
+        <a href="../admin/singers">Back</a>
     </div>
 </div>
 </body>

@@ -160,7 +160,7 @@
 <%--                </div>--%>
                 <a href="#" onclick="submitForm()">Edit</a>
             </form>
-            <a href="/admin/songs">Back</a>
+            <a href="../admin/songs">Back</a>
         </div>
     </div>
 </body>
@@ -168,10 +168,11 @@
     function submitForm(){
         if (validateFormEditSong()){
             document.getElementById("form-edit-song").submit();
+            alert("Cập nhật thành công")
         }
     }
     function validateString(inputString) {
-        var regex = /^[a-zA-Z0-9]*$/;
+        var regex = /[^\x00-\x7f]+/g;
         return regex.test(inputString);
     }
     function validateFormEditSong(){

@@ -122,7 +122,7 @@ public class SongServlet extends HttpServlet {
         req.setAttribute("categorys", categories);
         req.setAttribute("singers", singers);
         req.getRequestDispatcher("/JSPhomeAdmin/createSong.jsp").forward(req, resp);
-        resp.sendRedirect(req.getContextPath() + "/songs");
+//        resp.sendRedirect(req.getContextPath() + "/songs");
 
     }
     public void createSong(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
@@ -230,7 +230,12 @@ public class SongServlet extends HttpServlet {
         }
         Pageable pageable = new Pageable(search,page,TOTAL_ITEMS,nameField,sortBy,filterAuthor,filterSinger,filterCategory);
 
-        List<Song> songs = songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
+        List<Song> songs = new ArrayList<>();
+        if (search == null){
+            songs=  songDAO.showFilter(pageable, filterAuthor, filterSinger, filterCategory);
+        }else {
+            songs = songService.findAll(pageable);
+        }
         req.setAttribute("authors",authorService.findAll());
         req.setAttribute("singers",singerService.findAll());
         req.setAttribute("categories",categoryService.findAll());

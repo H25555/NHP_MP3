@@ -97,7 +97,7 @@
             </div>
             <a href="#"  onclick="submitFromAuthor()">Create</a>
         </form>
-        <a href="/admin/authors">Back</a>
+        <a href="../admin/authors">Back</a>
     </div>
 </div>
 </body>

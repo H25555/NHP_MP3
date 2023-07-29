@@ -97,7 +97,7 @@
             </div>
             <a href="#" onclick="submitFrom()">Create</a>
         </form>
-        <a href="/admin/categorys">Back</a>
+        <a href="../admin/categorys">Back</a>
     </div>
 </div>
 </body>

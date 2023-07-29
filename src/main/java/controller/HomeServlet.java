@@ -3,6 +3,7 @@ package controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.Pageable;
+import model.History;
 import model.Song;
 import service.*;
 
@@ -24,7 +25,7 @@ public class HomeServlet extends HttpServlet {
     CategoryService categoryService = new CategoryService();
     SongService songService = new SongService();
 
-
+    HistoryService  historyService = new HistoryService();
     private int TOTAL_ITEMS = 10;
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -33,13 +34,14 @@ public class HomeServlet extends HttpServlet {
         if(session.getAttribute("user") == null){
             session.setAttribute("user",userService.findByUsername("guest@gmail.com"));
         }
+        List<History> histories = historyService.findAll();
+        req.setAttribute("histories",histories);
         req.setAttribute("authors", authorService.findAll());
         req.setAttribute("singers", singerService.findAll());
         req.setAttribute("categories", categoryService.findAll());
         req.setAttribute("leaderboard", songService.showLeaderboard());
         req.setAttribute("songsJSON",convertListToJson(songService.showLeaderboard()));
         req.getRequestDispatcher("/JSPhomeUser/home.jsp").forward(req,resp);
-
     }
 
 

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="header.jsp" %>
 <div class="container">
-    <div class="container">
+    <div class="container" style="display: block">
         <form method="get" action="/admin/songs">
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -32,9 +32,9 @@
                     </select>
                 </div>
             </div>
-            <div>
+            <span>
                 <button type="submit" class="btn btn-primary">Filter</button>
-            </div>
+            </span>
         </form>
     </div>
     <c:if test="${requestScope['songs'].size() != 0}">
@@ -44,13 +44,13 @@
                 <th style="text-align: center" scope="col">
                     <c:if test="${pageable.sortBy== 'desc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.id">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.id">
                             ID
                         </a>
                     </c:if>
                     <c:if test="${pageable.sortBy== 'asc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.id">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.id">
                             ID
                         </a>
                     </c:if>
@@ -59,13 +59,13 @@
 
                     <c:if test="${pageable.sortBy== 'desc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.name">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=song.name">
                             name
                         </a>
                     </c:if>
                     <c:if test="${pageable.sortBy== 'asc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.name">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=song.name">
                             name
                         </a>
                     </c:if>
@@ -73,13 +73,13 @@
                 <th style="text-align: center" scope="col">
                     <c:if test="${pageable.sortBy== 'desc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_author">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_author">
                             Author
                         </a>
                     </c:if>
                     <c:if test="${pageable.sortBy== 'asc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_author">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_author">
                             Author
                         </a>
                     </c:if>
@@ -87,13 +87,13 @@
                 <th style="text-align: center" scope="col">
                     <c:if test="${pageable.sortBy== 'desc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=type">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=type">
                             Category
                         </a>
                     </c:if>
                     <c:if test="${pageable.sortBy== 'asc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=type">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=type">
                             Category
                         </a>
                     </c:if>
@@ -101,13 +101,13 @@
                 <th style="text-align: center" scope="col">
                     <c:if test="${pageable.sortBy== 'desc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_singer">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=asc&nameField=name_singer">
                             Singer
                         </a>
                     </c:if>
                     <c:if test="${pageable.sortBy== 'asc'}">
                         <a
-                                href="admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_singer">
+                                href="../admin/songs?page=${pageable.page}&search=${pageable.search}&sortBy=desc&nameField=name_singer">
                             Singer
                         </a>
                     </c:if>
@@ -125,7 +125,7 @@
                     <td style="align-content: center; align-items: center">
                             <%--                    ${song.image}--%>
                         <audio style="height: 30px" controls class="song-play" onplaying="getView(${song.id})" onpause="getDuration()" id="audio${status.index}">
-                            <source src="<c:url value='/${song.song}'></c:url>" type="audio/mp3">
+                            <source src="<c:url value='/${song.song}'></c:url>" type="audio/mp3 ">
                         </audio>
                     </td>
                     <td style="align-content: center; align-items: center">

@@ -11,13 +11,13 @@ import java.util.List;
 import java.sql.*;
 
 public class UserDAO extends ConnectionDatabase {
-    private final String CHECK_LOGIN = "SELECT * FROM nhp_mp3.user where user_name = ? and password = ?;";
+    private final String CHECK_LOGIN = "SELECT * FROM user where user_name = ? and password = ?;";
     private final String SELECT_USERS = "SELECT user.*, user_role.`name` as role_name " +
             "FROM user LEFT JOIN user_role " +
             "ON user.role = user_role.id WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ? \n" +
             "        OR lower(role.`name`) LIKE ? ORDER BY ? ?  LIMIT ? OFFSET ? ;";
-    private final String SELECT_USERS_BY_ID = "SELECT user.*, user_role.`name` as role_name " +
+    private final String SELECT_USERS_BY_ID = "SELECT 'user'.*, user_role.`name` as role_name " +
             "FROM user LEFT JOIN user_role " +
             "ON user.id_role = " +
             "user_role.id where user.id = ?;";
@@ -29,7 +29,7 @@ public class UserDAO extends ConnectionDatabase {
             "SET `user_name` = ?, `password` = ?, id_role = ? WHERE (`id` = ?);";
 
     private final String DELETE_USER = "DELETE  FROM `user` WHERE (`id` = ?);";
-    private final String CHECK_EXIST_USERNAME ="SELECT * FROM nhp_mp3.user where user_name = ?";
+    private final String CHECK_EXIST_USERNAME ="SELECT * FROM `user` where user_name = ?;";
     private String SELECT_ALL_USERS = "SELECT \n" +
             "    user.*, user_role.`name` as role_name \n" +
             "FROM\n" +
@@ -54,7 +54,7 @@ public class UserDAO extends ConnectionDatabase {
             "WHERE\n" +
             "    lower(user.`name`) LIKE ? OR lower(user.password) LIKE ?\n" +
             "        OR lower(role.`name`) LIKE ? ;";
-    private final String SELECT_USER_BY_USERNAME = "SELECT user.*, user_role.`name` as role_name FROM user LEFT JOIN user_role ON user.id_role = user_role.id where user.user_name = ?;\n" ;
+    private final String SELECT_USER_BY_USERNAME = "SELECT `user`.*, user_role.`name` as role_name FROM user LEFT JOIN user_role ON user.id_role = user_role.id where user.user_name = ?;\n" ;
     RoleService roleService = new RoleService();
     public List<User> findAll(Pageable pageable) {
         List<User> users = new ArrayList<>();
